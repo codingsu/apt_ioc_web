@@ -1,0 +1,255 @@
+
+.nav-new #search_container {
+  left: 50%;
+  right: 50%;
+  position: fixed;
+  top: 10px;
+  padding-top: 0px!important;
+  z-index: 99;
+  line-height: 38px;
+}
+
+.nav-new #search_container span.user-input input {
+  height: 35px;
+}
+
+.nav-new #search_container #scan_file_btn,
+.nav-new #ana {
+  height: 35px;
+  margin-left: -5px;
+}
+
+.nav-new #search_container span.file-info {
+  line-height: 16px;
+}
+
+.nav-new #scan_file_btn,
+.nav-new #ana {
+    /*width: 100%;*/
+  width: 100px;
+}
+.nav-new .q{
+  line-height: 1;
+}
+.ipt_photo:before {
+  font-size: 24px;
+}
+ /*ie8不正常 暂时解决办法*/
+.nav-new #search_container span.user-input input{
+  width: 600px!important;
+}
+@media(max-width: 1000px){
+  .nav-new  #search_container{
+    display: none;
+  }
+  .nav-new #scan_file_btn, .nav-new #ana{
+    width: 80px;
+  }
+}
+@media(min-width: 1000px) and (max-width: 1200px){
+  .nav-new #search_container{
+    display: block;
+  }
+  .nav-new #search_container span.user-input input{
+    width: 380px!important;
+  }
+  .nav-new #scan_file_btn, .nav-new #ana{
+    width: 80px;
+  }
+  .nav-new #search_container{
+    margin-left: -230px;
+    margin-right: -230px;
+  }
+}
+@media(min-width: 1200px)and (max-width: 1400px){
+  .nav-new #search_container{
+    display: block;
+  }
+  .nav-new #search_container span.user-input input{
+    width: 490px!important;
+  }
+  .nav-new #search_container{
+    margin-left: -295px;
+    margin-right: -295px;
+  }
+}
+@media(min-width: 1400px){
+  .nav-new #search_container{
+    display: block;
+  }
+  .nav-new #search_container span.user-input input{
+    width: 600px!important;
+  }
+  .nav-new #search_container{
+    margin-left: -350px;
+    margin-right: -350px;
+  }
+}
+input:disabled{
+  border-top: 1px solid #3fa9f5!important;
+  border-left: 1px solid #3fa9f5!important;
+  background-color: #fff!important;
+}
+span.file-info{
+  position: absolute;
+  right: 11px;
+  top: 12px;
+  font-size: 12px;
+}
+#search_container {
+    display: block;
+}
+span.user-input{
+  display: inline-block;
+  position: relative;
+}
+span.user-input input{
+  height: 42px;
+  border:1px solid #ccc;
+  border-right: 0px;
+  padding-left: 20px;
+  padding-right: 0px;
+  font-size: 14px;
+}
+span.user-input input:focus{
+  border-right: 0px;
+}
+
+#scan_file_btn,#ana{
+  width: 100%;
+  height: 42px;
+  font-size: 16px;
+  z-index: 0!important;
+}
+.btn-search{
+  border:none!important;
+  color: #fff!important;
+}
+.ipt_photo:before{
+  content: "";
+  display: inline-block;
+  margin-left: -5px;
+  width: 1px;
+  height: 20px;
+  background-color: #ccc;
+  margin-top: 10px;
+}
+
+.ipt_photo {
+  /*z-index: 100;*/
+  position: absolute;
+  top:0px;
+  right: 6px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  /*background-image:none;*/
+  background-image:url('/static/img/upload2.png');
+  background-position: 0 0;
+  /*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/img/upload_file.png',  sizingMethod='scale')*/
+}
+.ipt_photo:hover{
+  background-image:url('/static/img/upload2.png');
+  background-position: 40px 0;
+  /*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/img/upload_file_hover.png',  sizingMethod='scale')*/
+}
+.soutu-wrap {
+  background-color: #fff;
+  border: 1px solid #3fa9f5;
+  border-top: none;
+  width: 100%;
+  height: 200px;
+}
+.soutu-wrap .soutu-hr {
+  padding: 23px 20px 27px;
+  height: 100%;
+}
+.soutu-wrap .soutu-drop {
+  text-align: center;
+  height: 80px;
+  margin-bottom: 16px;
+  background-color: #fafafa
+}
+.index .soutu-wrap .soutu-drop{
+  padding-top: 15px;
+}
+.soutu-drop-dragover{
+  background-color:rgba(63,169,245,.2)!important;
+}
+.soutu-drop-dragend{
+  background-color:rgba(63,169,245,.3)!important;
+  /*background-color: #f2f6f9!important;*/
+}
+.soutu-wrap .soutu-icon {
+  background: url('/static/img/soutu_icons_new_418b2e38.png') no-repeat
+}
+.soutu-wrap .soutu-drop-icon {
+  margin-top: 6px;
+  width: 28px;
+  height: 28px;
+  background-position: -70px -2px
+}
+.soutu-wrap .upload-wrap {
+  position: relative;
+  width: 158px;
+  height: 43px;
+  font-size: 14px;
+  border: 1px solid #cacbcc;
+  line-height: 43px;
+  margin: 0 auto;
+  color: #333;
+  text-align: center
+}
+.soutu-wrap .upload-wrap:hover{
+  border: 1px solid #3fa9f5;
+  color: #3fa9f5;
+}
+.soutu-drop.drag-over .soutu-drop-icon {
+  background-position: -42px -2px
+}
+.soutu-wrap .upload-pic {
+  position: absolute;
+  font-size: 0;
+  width: 100%;
+  height: 100%;
+  outline: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  z-index: 1;
+  cursor: pointer
+}
+.soutu-wrap .upload-icon {
+  background-image:url('/static/img/upload2.png');
+  background-position: 0 0;
+  margin-left: -10px;
+  margin-top: -5px;
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.soutu-wrap .soutu-close {
+  background-position: -20px 0;
+  width: 18px;
+  height: 18px
+}
+
+.soutu-wrap .soutu-close:hover {
+  background-position: -197px -1px
+}
+
+@media(max-width: 700px){
+  #scan_file_btn, #ana{
+    display: inline-block!important;
+  }
+  .soutu-wrap{
+    height: 90px;
+  }
+}
+
+.btns-contaienr{
+  padding-left: 0px;
+}
+span.user-input{
+  padding-right: 0px;
+}

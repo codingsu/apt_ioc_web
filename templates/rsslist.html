@@ -1,0 +1,78 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="main-panel">
+      <nav class="navbar navbar-default navbar-fixed">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">RSS列表</a>
+          </div>
+          {% include "userdropdown.html" %}
+        </div>
+      </nav>
+
+
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div style="" class="header">
+                  <div style="float: left;">
+                    <h4 class="title">RSS列表</h4>
+                    <p class="category"></p>
+                  </div>
+                  <div style="float: right;">
+                    <a href="/tonewrss" class="btn btn-info btn-fill"><i class="fa fa-plus"></i>新建RSS</a>
+                  </div>
+
+                </div>
+
+                <div style="margin-top:60px" class="content table-responsive">
+                  <table style="table-layout: fixed;" class="table table-hover table-striped">
+                    <thead>
+                      <th width="50px">序号</th>
+                      <th width="300px">名字</th>
+                      <th width="300px">别称</th>
+                      <th>链接</th>
+                      <th width="50px" style="float: right;">修改</th>
+                    </thead>
+                    <tbody>
+                      {% for i in rsslist %}
+                      <tr>
+                        <tr>
+                        <td width="100px">{{ i.id }}</td>
+                        <td width="100px">{{ i.text }}</td>
+                        <td width="100px">{{ i.othername }}</td>
+                        <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">{{ i.url }}</td>
+                        <td class="td-actions text-right">
+                                <a href="/toeditrss?id={{ i.id }}" role="button" rel="tooltip" title="Edit Indicator" class="btn btn-info btn-simple btn-xs">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="/deleterss?id={{ i.id }}" role="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="fa fa-times"></i>
+                            </a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "footer.html" %}
+      </div>
+      </div>
+      {% endblock content %}

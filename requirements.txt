@@ -1,0 +1,14 @@
+#网站
+sudo pip install Django == 1.8.17
+sudo pip install django-crontab
+sudo pip install MySQLdb -1.2.5
+sudo pip install hashlib
+
+#爬虫
+sudo pip install feedparser
+sudo pip install STMPsendEmail
+sudo pip install json
+sudo pip install rfc822
+sudo pip install smtplib
+sudo pip install email
+

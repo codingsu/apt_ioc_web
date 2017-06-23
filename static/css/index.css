@@ -1,0 +1,235 @@
+body{
+  background-color: #fff;
+}
+body,html{
+  height: 100%;
+  overflow-x: hidden
+}
+#plat_graph{
+  width: 320px;
+  margin-bottom: 50px;
+}
+/*移动端 下拉菜单被挡 因为postion被bootstrap设置为relative*/
+.pos-static {
+  position: static;
+}
+.soutu-drop-tip {
+  font-size: 12px;
+}
+span.user-input {
+  position: relative;
+}
+span.search-wrong{
+  position: absolute;
+  top: 15px;
+  font-size: 12px;
+  right: 50px;
+  line-height: 12px;
+}
+span.placeholder {
+  padding-left: 22px;
+  z-index: -1;
+  visibility: visible;
+  top: 0px;
+  width: 100%;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/*自定义 placeholder*/
+.q {
+  background-color: transparent;
+}
+/*ie8不正常 暂时解决办法*/
+#form_file,#form_search{
+  width: 954px;
+}
+.user-input input{
+  width: 820px; 
+}
+.soutu-wrap{
+  width: 954px; 
+}
+#ana,#scan_file_btn{
+  width: 135px; 
+  margin-left: -5px;
+}
+@media screen and (max-width: 700px){
+  #form_file,#form_search{
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 360px;
+  }
+  .user-input input{
+    width: 250px!important;
+  }
+  .soutu-wrap{
+    width: 330px;
+  }
+  #ana,#scan_file_btn{
+    width: 80px;
+    margin-left: 0px;
+  }
+}
+@media screen and (min-width: 700px) and (max-width: 1200px){
+  #form_file,#form_search{
+    width: 510px;
+  }
+  .user-input input{
+    width: 440px!important;
+  }
+  .soutu-wrap{
+    width: 510px;
+  }
+  #ana,#scan_file_btn{
+    width: 70px;
+    margin-left: 0px;
+  }
+}
+@media screen and (min-width: 1200px) and (max-width: 1600px){
+  #form_file,#form_search{
+    width: 720px;
+  }
+  .user-input input{
+    width: 620px!important;
+  }
+  .soutu-wrap{
+    width: 720px;
+  }
+  #ana,#scan_file_btn{
+    width: 100px;
+    margin-left: 0px;
+  }
+}
+@media screen and (min-width: 1600px){
+  #form_file,#form_search{
+    width: 955px;
+  }
+  .user-input input{
+    width: 820px!important; 
+  }
+  .soutu-wrap{
+    width: 955px; 
+  }
+  #ana,#scan_file_btn{
+    width: 135px; 
+    margin-left: 0px;
+  }
+}
+p.note {
+  padding-top: 10px;
+  font-size: 12px;
+}
+
+p.note a {
+  color: #717b82;
+  margin-right: 6px;
+}
+p.note a:hover {
+  color: #3fa9f5;
+}
+
+#idx_menu{
+  margin-top:-5px;
+  margin-left: 50px;
+}
+#idx_menu a{
+  color: #717b82;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#idx_menu a:hover{
+  color: #3fa9f5;
+}
+#idx_menu>li>a:hover, .nav>li>a:focus {
+  text-decoration: none;
+  background-color: transparent;
+}
+#more_benefit{
+  color: #fff;
+  background-color: #2d3438;
+  padding-right: 20px;
+  /*width: 230px;*/
+  height: 40px;
+  position: absolute;
+  top: 70px;
+  right: 0px;
+}
+#more_benefit:before{
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #2d3438;
+  position: absolute;
+  left: -20px;
+}
+#more_benefit .glyphicon-bell{
+  line-height: 40px;
+}
+#more_benefit .glyphicon-bell.insider:after{
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #f15a24;
+  position: absolute;
+  right: -5px;
+  top: 10px;
+}
+.insider{
+  color: #2d3438;
+  position: absolute;
+  z-index: 100;
+  left: 2px;
+  font-size: 14px;
+}
+.outer{
+  color:#fff;
+  font-size: 18px;
+  position: absolute;
+}
+#benefit_info{
+  margin-left: 20px;
+  line-height: 40px;
+  margin-left: 40px;
+  /*display: inline-block;
+  vertical-align: text-bottom;*/
+  /*display: inline-block;
+  margin-top: -10px;*/
+}
+#benefit_info a{
+  color: #fff;
+}
+#benefit_info a:hover{
+  color: #fff;
+  text-decoration: underline;
+}
+.pogoSlider-animation-slideRightIn {
+    -webkit-animation-name: slideRightIn;
+    animation-name: slideRightIn;
+     -webkit-animation-duration:2s;
+    animation-duration:2s;
+}
+@-webkit-keyframes slideRightIn {
+    0% {
+      /*right: -280px;*/
+        -webkit-transform: translateX(280px);
+        transform: translateX(280px);
+        opacity: 0
+    }
+    100% {
+      /*right: 0px;*/
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+#source_ip{
+  font-size: 12px;
+  margin-top: 50px;
+}

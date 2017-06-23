@@ -1,0 +1,155 @@
+div.this-title{
+  padding-top: 50px;
+  padding-bottom: 5px;
+  padding-left: 1px;
+}
+div.this-title h3{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+#ratio{
+  font-size: 24px;
+}
+.v-align-bottom{
+  vertical-align: bottom!important;
+}
+/*结果页面tab样式*/
+.nav-tabs{
+  border:none;
+}
+.nav-tabs>li>a{
+  /*菜单各项之间距离*/
+  margin-right: 0px;
+}
+.res-tab.nav-tabs > li > a:hover{color:#3fa9f5;}
+.nav-tabs > li > a{font-size:16px;font-weight:bold;color:#717b82;}
+@media(max-width: 700px){
+  .nav-tabs > li > a{
+    padding:5px 5px;
+  }
+}
+.main_body div.tab-content{
+  background-color: #fff;
+  padding-top: 24px;
+  padding-bottom: 32px;
+  border:1px solid #dfe9ef;
+}
+/*缺省/loading*/
+span.no-data,p.no-data{
+  padding-left: 20px;
+  padding-right: 20px;
+  line-height: 40px;
+}
+p.no-data{
+  margin-bottom: 0px;
+}
+div.loading.sandbox-loading span.no-data,div.loading.sandbox-loading p.no-data{
+  padding-left: 0px;
+  padding-right: 0px;
+  line-height: 40px;
+}
+/*badge 共*条*/
+span.vb-badge+button{
+  background-color: #f0f3f5;
+}
+span.vb-badge+button:hover{
+  background-color: #f8f8f9;
+}
+/*结果页表格样式*/
+.table {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.panel table.table-horizonal tbody tr th
+{
+  padding-left: 20px;
+}
+.panel table.table-horizonal tbody tr td{
+  padding-right: 20px;
+}
+.panel:not(.domain-head-panel){
+  margin-left: 20px;
+  margin-right: 20px;
+}
+/*.tab-pane{
+  padding-bottom: 10px;
+}*/
+.panel .table>thead>tr>th,
+.panel .table>thead>tr>th,.panel .table>tbody>tr>th,.panel .table>tfoot>tr>th,.panel .table>thead>tr>td,.panel .table>tbody>tr>td,.panel .table>tfoot>tr>td{
+  border:none;
+}
+.panel .table{
+  border:none;
+}
+.panel div.table-responsive{
+  border:none;
+}
+.panel .panel-heading{
+  margin-bottom: 10px;
+}
+.domain-head-panel{
+  padding:24px 25px 32px;
+  border:1px solid #dfe9ef;
+}
+
+.table-vertical thead tr th:first-child,
+.table-vertical tbody tr td:first-child{
+  padding-left: 20px;
+}
+.table-vertical thead tr th:last-child,
+.table-vertical tbody tr td:last-child{
+  padding-right: 20px;
+}
+.table-only-data>tbody>tr>td{/*调整顺序*/
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#dns_tag .table-bordered td,
+#dns_tag .table-bordered th{/*dns表格，要看*/
+
+  border:1px solid #f0f3f5!important;
+}
+/*移动端 表格*/
+@media(max-width: 700px){
+  .domain-head-panel{
+    width: 100%;
+    /*display: inline-block;*/
+    padding: 24px 10px 32px!important;
+  }
+  .panel:not(.domain-head-panel){
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .panel .panel-heading{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .table-vertical thead tr th:first-child,
+  .table-vertical thead tr th:last-child,
+  .table-vertical tbody tr td:first-child,
+  .table-vertical tbody tr td:last-child,
+  .vb-strip-table thead tr th:first-child,
+  .vb-strip-table thead tr th:last-child,
+  .vb-strip-table tbody tr td:first-child,
+  .vb-strip-table tbody tr td:last-child{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .table-only-data tr td{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .panel table.table-horizonal tbody tr th
+  {
+    padding-left: 10px;
+  }
+  .panel table.table-horizonal tbody tr td{
+    padding-right: 10px;
+  }
+  p.no-data{/*不全*/
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 40px;
+  }
+}

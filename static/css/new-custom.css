@@ -1,0 +1,138 @@
+.blue {
+    color: #3fa9f5;
+}
+a.blue:hover{
+	color: #0f9aef!important;
+}
+.white{
+	color: #fff!important;
+}
+.gray{
+	color: #666!important;
+}
+.blue-container{
+	background-color: #3fa9f5!important;
+}
+.gray-container{
+	background-color: #dfe9ef!important;
+}
+.gray-container:hover{
+	background-color: #ced9e0!important;
+}
+
+.gray-black-container{
+	background-color: #9ca6a7!important;
+}
+.gray-black-container:hover{
+	background-color: #9c9fa3!important;
+}
+
+.white-container{
+	background-color: #fff!important;
+	border: 1px solid #3fa9f5!important;
+	color: #3fa9f5!important;
+}
+.white-container:hover{
+	font-weight: bold;
+}
+.blue-container:hover{
+	background-color: #0f9aef!important;
+}
+.warn-info{
+	color: #f15a24!important;
+}
+.gray-border{
+	border: 1px #dfe9ef solid!important;
+}
+
+/*.no-border{
+	border-radius: 0px!important;
+}
+.no-borderRadius{
+  border-radius: 0!important
+}*/
+.lg-font-size{font-size:48px!important;}
+.lgless-font-size{font-size:36px!important;}
+.mdr-font-size{font-size:24px!important;}
+.md-font-size{font-size:18px!important;}
+.mdless-font-size{font-size:16px!important;}
+.sm-font-size{font-size:14px!important;}
+.xs-font-size{font-size:12px!important;}
+.bold-font{font-weight:bold;}
+
+.vb-alert-info{
+	padding:15px 20px;
+	color: #3fa9f5;
+	background-color: rgba(63,169,245,.1);
+	font-size: 14px!important;
+	border-radius: 0px;
+}
+.tip-orange{
+	color: rgba(255,147,30,1)!important;
+}
+/*tag标签*/
+.tag{font-weight: bold;text-align: center;white-space: nowrap;vertical-align: baseline;line-height: 1;font-size:12px;padding:6px 12px;background-color:#ffa91f;display: inline-block;margin-bottom: 5px;}
+.tag:empty {
+  display: none;
+}
+.clickable-tag a{color:white;text-decoration:underline; }
+.clickable-tag:hover,
+.clickable-tag:active{color:white;background-color:#ff961e }
+.non-clickable-tag{background-color:#ffebe7;color:#f15a24;}
+.whitelist-tag{background-color:#e5f4da;;color:#7ac943 ;}
+.danger-tag{color:#f15a24;background-color:#ffebe7}
+.danger-less-tag{color:#f7931e;background-color:#fff6ea;background-color: rgba(255,169,31,.2)}
+.neutral{color:#3fa9f5;background-color:#e7efff;}
+.gray-tag{
+	background-color: #f0f0f0;
+	color: #96a3aa;
+}
+#whois .tag{
+	margin-bottom: 0px;
+}
+/*tag标签*/
+/*label by severity*/
+.high{color:#a94442}
+.medium{color:#f15a24}
+.low{color:#f7931e}
+/*label by severity*/
+.btn.vb-cancel{
+	width: auto!important;
+	background-color: transparent;
+}
+.btn.vb-cancel:hover{
+	color: #717b82;
+}
+
+
+th.time-width{
+	width: 130px;
+}
+th.proto{
+	width: 180px;
+}
+th.port-status{
+	width: 80px;
+}
+th.milli-time-width{
+	width: 260px;
+}
+
+/*确认消耗点数*/
+.consume-link{
+	color: #3fa9f5;
+	border: 2px solid #3fa9f5;
+  border-radius: 55px;
+  padding: 2px 10px;
+	background-color: transparent;
+	margin-left: 20px;
+	font-weight: bold;
+}
+.consume-link:hover{
+	color: #0f93f2;
+	text-decoration: none;
+}
+.remainedDot{
+	color: #f7931e;
+	font-weight: bold;
+}

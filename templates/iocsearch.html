@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-panel">
+  <nav class="navbar navbar-default navbar-fixed">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Victims</a>
+    </div>
+    {% include "userdropdown.html" %}
+  </div>
+</nav>
+
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="card">
+                <div class="header">
+                  <div style="float: left;">
+                    <h4 class="title">搜索结果</h4>
+                  </div>
+                </div>
+
+                <div style="margin-top:60px" class="content table-responsive table-full-width">
+                  <table class="table table-hover table-striped">
+                    <thead>
+                      <th>Name</th>
+                      <th>Date</th>
+                      <th>Ioc Type</th>
+                      <th>Ioc</th>
+                      <th>Page</th>
+                      <th>Tags</th>
+                    </thead>
+                    <tbody>
+                        {% for i in iocs %}
+                        <tr>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.ioc_type }}</td>
+                            <td>{{ i.ioc_match }}</td>
+                            <td>{{ i.ioc_page }}</td>
+                            <td></td>
+                        </tr>
+                        {% endfor%}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "footer.html" %}
+      </div>
+    </div>
+    {% endblock content %}
