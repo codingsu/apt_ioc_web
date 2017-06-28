@@ -49,20 +49,20 @@
                           </div>
                           <div class="form-group">
                             <label>旧密码</label>
-                            <input type="text" class="form-control" name="oldpwd" id="oldpwd" placeholder="请输入用户的旧密码" >
+                            <input type="password" class="form-control" name="oldpwd" id="oldpwd" placeholder="请输入用户的旧密码" >
                           </div>
                           <div class="form-group">
                             <label>新密码</label>
-                            <input type="text" class="form-control" name="newpwd" id="newpwd" placeholder="请输入用户的新密码" >
+                            <input type="password" class="form-control" name="newpwd" id="newpwd" placeholder="请输入用户的新密码" >
                           </div>
                           <div class="form-group">
                             <label>校验新密码</label>
-                            <input type="text" class="form-control" name="checknewpwd" id="checknewpwd" placeholder="请再次输入用户的新密码" >
+                            <input type="password" class="form-control" name="checknewpwd" id="checknewpwd" placeholder="请再次输入用户的新密码" >
                           </div>
                             <div style="float: right;">
                               <a href="/rsslist" class="btn btn-info btn-fill">Cancel</a>
 
-                              <button type="submit" class="btn btn-info btn-fill">Submit</button>
+                              <button onclick="send()" id='submitbt' type="button" class="btn btn-info btn-fill">提交</button>
 
                             </div>
                             <div class="clearfix"></div>
@@ -78,6 +78,34 @@
         </div>
       </div>
 </div>
+    <script type="text/javascript">
+    function send() {
+        var oldpwd = document.getElementById('oldpwd').value
+        var newpwd = document.getElementById('newpwd').value
+        var checknewpwd = document.getElementById('checknewpwd').value
+        if(newpwd != checknewpwd){
+            document.getElementById('oldpwd').value = ''
+            document.getElementById('newpwd').value = ''
+            document.getElementById('checknewpwd').value = ''
+            alert('两次密码不一样，请重新输入')
+        }else{
+            var id = document.getElementById('id').value
+            var username = document.getElementById('username').value
+            var message = {'id':id,'username':username,'oldpwd':oldpwd,'newpwd':newpwd}
+            $.ajax({
+                url:'/saveuser',
+                dataType:'json',
+                data:message,
+                success:function (result) {
+                    alert(result[1])
+                    document.getElementById('oldpwd').value = ''
+                    document.getElementById('newpwd').value = ''
+                    document.getElementById('checknewpwd').value = ''
+                }
+            })
+        }
+    }
+    </script>
       {% include "footer.html" %}
 
 {% comment %}
@@ -130,4 +158,5 @@
 </div>
 </div>
 {% endcomment %}
+
 {% endblock content %}

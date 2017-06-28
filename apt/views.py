@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 
 from hashlib import md5
-
+from django.http import  JsonResponse
 from django.shortcuts import render,redirect
 from models import ioc
 from models import iocTag
@@ -173,8 +173,8 @@ def toeditrss(request):
             erss = rss.objects.get(id=rssid)
             return render(request, 'editrss.html', {'erss': erss})
         except Exception,e:
-            print traceback.print_exc()
-            logging.error(traceback.print_exc())
+            print traceback.format_exc()
+            logging.error(traceback.format_exc())
     return errorhtml(request)
 
 @login_decorator
@@ -216,8 +216,8 @@ def deleterss(request):
             erss.delete()
             return rsslist(request)
         except Exception,e:
-            print traceback.print_exc()
-            logging.error(traceback.print_exc())
+            print traceback.format_exc()
+            logging.error(traceback.format_exc())
     return errorhtml(request)
 
 @login_decorator
@@ -231,8 +231,8 @@ def tonewrss(request):
         try:
             return render(request, 'editrss.html', {'erss': None})
         except Exception,e:
-            print traceback.print_exc()
-            logging.error(traceback.print_exc())
+            print traceback.format_exc()
+            logging.error(traceback.format_exc())
             return errorhtml(request)
 
 @login_decorator
@@ -264,7 +264,7 @@ def savekeyfilter(request):
             m.keycheck = keycheck
             m.save()
         except Exception,e:
-            print traceback.print_exc()
+            print traceback.format_exc()
             m = keyfilter.objects.create(name=name,keyword=keyword,keycheck=keycheck)
             m.save()
     return keyfilters(request)
@@ -283,8 +283,8 @@ def toeditkeyfilter(request):
             # print m.name
             return render(request, 'editkeyfilter.html', {'keyfilter': m})
         except Exception,e:
-            print traceback.print_exc()
-            logging.error(traceback.print_exc())
+            print traceback.format_exc()
+            logging.error(traceback.format_exc())
     return errorhtml(request)
 
 @login_decorator
@@ -298,8 +298,8 @@ def tonewkeyfilter(request):
         try:
             return render(request, 'editkeyfilter.html', {'keyfilter': None})
         except Exception,e:
-            print traceback.print_exc()
-            logging.error(traceback.print_exc())
+            print traceback.format_exc()
+            logging.error(traceback.format_exc())
             return errorhtml(request)
 
 @login_decorator
@@ -316,8 +316,8 @@ def deletekeyfilter(request):
             m.delete()
             return keyfilters(request)
         except Exception,e:
-            print traceback.print_exc()
-            logging.error(traceback.print_exc())
+            print traceback.format_exc()
+            logging.error(traceback.format_exc())
             return errorhtml(request)
 
 @login_decorator
@@ -332,9 +332,44 @@ def usersetting(request):
         u = user.objects.get(id= uid)
         return render(request, 'edituser.html', {'user':u})
     except Exception,e:
-        print traceback.print_exc()
-        logging.error(traceback.print_exc())
+        print traceback.format_exc()
+        logging.error(traceback.format_exc())
         return errorhtml(request)
+
+@login_decorator
+def tosaveuser(request):
+    """
+    保存用户设置
+    :param request:
+    :return:
+    """
+    uid = request.session['user_id']
+    if request.is_ajax():
+        try:
+            print request.GET
+            myid = int(request.GET.get('id'))
+            u1 = user.objects.get(id=myid)
+            #不能修改别人的信息
+            if myid != uid or user.objects.get(id=myid) == None:
+                return errorhtml(request)
+            else:
+                u = user.objects.get(id=myid)
+                username = request.GET.get('username')
+                oldpwd = request.GET.get('oldpwd')
+                newpwd = request.GET.get('newpwd')
+                if u.password != md5(oldpwd).hexdigest():
+                    print '密码错误'
+                    return JsonResponse((0,'旧密码输入错误！'),safe=False)
+                else:
+                    u.password = md5(newpwd).hexdigest()
+                    u.username = username
+                    u.save()
+                    return JsonResponse((1,'更改信息成功！'),safe=False)
+        except Exception:
+            print traceback.format_exc()
+            logging.error(traceback.format_exc())
+            return errorhtml(request)
+
 
 @login_decorator
 def news(request):
@@ -414,8 +449,8 @@ def news(request):
 
         return render(request, 'newlist.html', {'messages':somem, 'allmessages':allm})
     except Exception , e:
-        traceback.print_exc()
-        logging.error(traceback.print_exc())
+        traceback.format_exc()
+        logging.error(traceback.format_exc())
         return errorhtml(request)
 
 @login_decorator
@@ -441,10 +476,10 @@ def readNew(request):
                 new_user.save()
             return news(request)
     except Exception as e:
-        print traceback.print_exc()
-        logging.error(traceback.print_exc())
+        print traceback.format_exc()
+        logging.error(traceback.format_exc())
         return errorhtml(request)
-
+@login_decorator
 def errorhtml(request):
     """
     显示错误的页面
