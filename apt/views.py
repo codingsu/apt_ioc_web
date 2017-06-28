@@ -33,7 +33,7 @@ def index(request):
     :param request:
     :return:
     """
-    return render(request, 'login.html')
+    return board(request)
 
 #登录判断逻辑
 def login(request):
