@@ -17,7 +17,7 @@ from django.conf.urls import url
 from apt import views as apt_views
 
 urlpatterns = [
-    url(r'^$', apt_views.index, name='home'),
+    url(r'^$', apt_views.board, name='home'),
     url(r'^login$', apt_views.login, name='login'),
     url(r'^about$', apt_views.about,name='about'),
     url(r'^searchioc',apt_views.seachIoc,name='searchioc'),
