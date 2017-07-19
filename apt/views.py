@@ -96,7 +96,7 @@ def seachIoc(request):
                 i.tag = '无'
                 i.ioc_oriurl = t.ioc_oriurl
                 if 'html' in t.name:
-                    name = t.name.replace('.html','')
+                    i.name = t.name.replace('.html','')
                 allfind.append(i)
 
         # print allfind
