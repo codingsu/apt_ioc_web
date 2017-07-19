@@ -81,22 +81,24 @@ def seachIoc(request):
             date = ''
             ioc_type = ''
             ioc_match = ''
+            ioc_rss = ''
             ioc_page = ''
-            tag = ''
 
         for t in text:
             iocs = ioc.objects.filter(ioc_match__contains=t)
             for t in iocs:
                 i = Temp()
                 i.name = t.name
-                i.date = t.date
                 i.ioc_type = t.ioc_type
                 i.ioc_match = t.ioc_match
                 i.ioc_page = t.ioc_page
-                i.tag = '无'
                 i.ioc_oriurl = t.ioc_oriurl
                 if 'html' in t.name:
-                    i.name = t.name.replace('.html','')
+                    result = rssmessage.objects.filter(link=t.ioc_oriurl.replace('\n',''))
+                    for r in result:
+                        i.date = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(r.date)))
+                        i.name = r.title
+                        i.ioc_rss = r.rssname
                 allfind.append(i)
 
         # print allfind
