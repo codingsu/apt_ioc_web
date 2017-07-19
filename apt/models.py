@@ -7,6 +7,9 @@ class ioc(models.Model):
     ioc_type = models.CharField(max_length=10, default="")
     ioc_match = models.CharField(max_length=500, default="")
     ioc_page = models.CharField(max_length=10, default="")
+    ioc_oriurl = models.CharField(max_length=500,default="")
+    class Meta:
+        unique_together = ('name', 'ioc_match',)
 
 class iocTag(models.Model):
     name = models.CharField(max_length=20, default="")

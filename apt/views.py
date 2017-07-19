@@ -76,9 +76,27 @@ def seachIoc(request):
         # print searchtext
         text = searchtext.split(' ')
         # print text
+        class Temp:
+            name = ''
+            date = ''
+            ioc_type = ''
+            ioc_match = ''
+            ioc_page = ''
+            tag = ''
+
         for t in text:
             iocs = ioc.objects.filter(ioc_match__contains=t)
-            for i in iocs:
+            for t in iocs:
+                i = Temp()
+                i.name = t.name
+                i.date = t.date
+                i.ioc_type = t.ioc_type
+                i.ioc_match = t.ioc_match
+                i.ioc_page = t.ioc_page
+                i.tag = '无'
+                i.ioc_oriurl = t.ioc_oriurl
+                if 'html' in t.name:
+                    name = t.name.replace('.html','')
                 allfind.append(i)
 
         # print allfind
