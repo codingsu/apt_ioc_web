@@ -36,38 +36,31 @@
               </div>
             </div>
           </div>
-          <div style="width: 900px;" class="row">
-          {% for keyfilter in keyfilters %}
-            <div class="col-md-3 col-md-offset-1">
-                <div style="width: 250px; height: 250px" class="card">
-                <div class="header">
-                  <h4 class="title"><i class="pe-7s-ticket" id="{{ keyfilter.id }}" ></i> {{ keyfilter.name }}</h4>
-                  <p class="category">
-                    <a href="/editcampaign/" class="fa"></a>
-                  </p>
-                    <div style="float: right"><a  href="/deletekeyfilter?id={{ keyfilter.id }}" class="btn btn-error btn-fill"><i style="width: 1px" class="fa"></i>删除推送</a>
-                  </div>
-                    <div style="float: bottom;"><a href="/toeditkeyfilter?id={{ keyfilter.id }}" class="btn btn-info btn-fill"><i style="width: 1px" class="fa"></i>编辑推送</a>
-                  </div>
-                </div>
-                <div class="content table-responsive table-full-width">
-                  <table class="table table-hover table-striped">
+          <div style="margin-top:1px" class="content table-responsive table-full-width">
+                  <table id="table_1" name="table_1" class="table table-hover table-striped">
                     <thead>
-                      <th>关键点：{% if keyfilter.keycheck == "rsstitle" %}RSS标题{% elif keyfilter.keycheck == "iocmatch" %}IOC内容{% endif %}
-                      </th>
+                      <th width="30px">标签名称</th>
+                      <th width="30px">关键点</th>
+                      <th width="30px">关键词</th>
+                      <th width="30px">编辑</th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>关键词：{{ keyfilter.keyword }}</td>
+                        {% for keyfilter in keyfilters %}
+                        <tr>
+                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{{ keyfilter.name }}</td>
+                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{% if keyfilter.keycheck == "rsstitle" %}RSS标题{% elif keyfilter.keycheck == "iocmatch" %}IOC内容{% endif %}</td>
+                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis">{{ keyfilter.keyword }}</td>
+                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis"><div style="float: right"><a  href="/deletekeyfilter?id={{ keyfilter.id }}" class="btn btn-error btn-fill"><i style="width: 1px" class="fa"></i>删除推送</a>
+                  </div>
+                    <div style="float: bottom;"><a href="/toeditkeyfilter?id={{ keyfilter.id }}" class="btn btn-info btn-fill"><i style="width: 1px" class="fa"></i>编辑推送</a>
+                  </div></td>
                         </tr>
+                        {% endfor%}
                     </tbody>
                   </table>
-                </div>
-              </div>
-            </div>
+                    <div id="barcon1" name="barcon1"></div>
 
-          {% endfor %}
-          </div>
+                </div>
 
         </div>
       </div>

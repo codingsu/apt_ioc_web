@@ -100,8 +100,9 @@ def seachIoc(request):
                         i.name = r.title
                         i.ioc_rss = r.rssname
                 allfind.append(i)
+        allfind.sort(key=lambda obj: obj.date, reverse=True)
 
-        # print allfind
+                # print allfind
     return render(request, 'iocsearch.html', {'iocs': allfind})
 
 @login_decorator
