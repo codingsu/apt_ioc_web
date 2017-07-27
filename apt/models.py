@@ -5,7 +5,7 @@ class ioc(models.Model):
     name = models.CharField(max_length=100, default="")
     date = models.CharField(max_length=20, default="")
     ioc_type = models.CharField(max_length=10, default="")
-    ioc_match = models.CharField(max_length=300, default="")
+    ioc_match = models.CharField(max_length=200, default="")
     ioc_page = models.CharField(max_length=10, default="")
     ioc_oriurl = models.CharField(max_length=500, default="")
     class Meta:
