@@ -437,6 +437,7 @@ def news(request):
                             messages['link'] = r.link
                             messages['author'] = r.author
                             messages['tags'] = key.name
+                            messages['filedir'] = r.filedir
                             somem.append(messages)
                             break
                 # if r.keycheck == 'rsstitle':
@@ -466,6 +467,7 @@ def news(request):
                         if word in r.title.lower():
                             messages['tags'] = key.name
                             break
+                messages['filedir'] = r.filedir
                 allm.append(messages)
 
         return render(request, 'newlist.html', {'messages':somem, 'allmessages':allm})
@@ -500,6 +502,17 @@ def readNew(request):
         print traceback.format_exc()
         logging.error(traceback.format_exc())
         return errorhtml(request)
+
+
+@login_decorator
+def showpdf(request):
+    """
+    显示pdf
+    :param request:
+    :return:
+    """
+    return render(request, 'home.html')
+
 @login_decorator
 def errorhtml(request):
     """

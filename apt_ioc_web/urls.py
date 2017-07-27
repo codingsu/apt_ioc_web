@@ -37,4 +37,5 @@ urlpatterns = [
     url(r'^logout', apt_views.logout, name='logout'),
     url(r'^readnew', apt_views.readNew, name='readnew'),
     url(r'^saveuser', apt_views.tosaveuser, name='saveuser'),
+    url(r'^testpdf', apt_views.showpdf,name='showpdf'),
 ]

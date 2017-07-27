@@ -5,6 +5,15 @@
     <title>你好啊</title>
 </head>
 <body>
-<a href="{% url 'add' %}">计算 4+5</a>
+
+
 </body>
+<script type="text/JavaScript" src="../static/js/pdfobject.js"></script>
+<script type="text/javascript">
+window.onload = function (){
+    var success = new PDFObject({ url: "../static/pdf/test.pdf" ,pdfOpenParams: { scrollbars: '0', toolbar: '0', statusbar: '0'}}).embed("pdf1");
+};
+</script>
+
+<div id="pdf1" style="width:700px; height:600px;">It appears you don't have Adobe Reader or PDF support in this web browser. <a href="../static/pdf/test.pdf">Click here to download the PDF</a></div>
 </html>
