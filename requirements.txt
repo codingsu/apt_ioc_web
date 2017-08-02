@@ -11,4 +11,5 @@ sudo pip install json
 sudo pip install rfc822
 sudo pip install smtplib
 sudo pip install email
+sudo pip install selenium
 

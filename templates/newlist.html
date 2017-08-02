@@ -73,7 +73,7 @@
                             {% if i.filedir == '' %}
                                 <td>暂无快照</td>
                             {% else %}
-                                <td><a href="javascript:void(0);" onclick="updatenews('{{ i.filedir }}')">阅读</a></td>
+                                <td><a href="javascript:void(0);" onclick="seepdf('{{ i.filedir }}')">阅读</a></td>
                             {% endif %}
                             <td><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
                         </tr>
@@ -128,8 +128,9 @@
                             {% if i.filedir == '' %}
                                 <td>暂无快照</td>
                             {% else %}
-                                <td><a href="javascript:void(0);" onclick="updatenews('{{ i.filedir }}')">阅读</a></td>
-                            {% endif %}                            <td><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
+                                <td><a href="javascript:void(0);" onclick="seepdf('{{ i.filedir }}')">阅读</a></td>
+                            {% endif %}
+                            <td><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
                         </tr>
                         {% endfor%}
                     </tbody>
