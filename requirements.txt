@@ -13,3 +13,10 @@ sudo pip install smtplib
 sudo pip install email
 sudo pip install selenium
 
+
+#es
+#安装中文分词ik
+#https://github.com/medcl/elasticsearch-analysis-ik/releases
+#安装拼音搜索功能
+#https://github.com/medcl/elasticsearch-analysis-pinyin
+#需要安装mvn打包

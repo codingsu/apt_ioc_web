@@ -17,238 +17,71 @@
   </div>
 </nav>
   <div style="position:relative"class="content">
-      <img style="max-width: 35%; max-height: 35%;margin-top:40px" src="/static/img/bowulogo2.png" id="plat_graph" class="center-block">
+      <img style="max-width: 35%; max-height: 35%;margin-top:20px" src="/static/img/bowulogo2.png" id="plat_graph" class="center-block">
     <div align="center" style="margin-top:40px" class="container-fluid">
       <div  class="row">
         <div  class="col-md-12">
-          <div style="max-width:700px;min-width: 700px">
-              <div>
-                  <form method="post" action="/searchioc">
-                      {% csrf_token %}
-                      <div style="margin-top:20px;float: right;margin-left: 1px">
-                        <input type="submit" class="btn btn-info btn-fill" value="搜索" />
-                      </div>
-                      <div style="margin-top:20px;float: left;">
-                            <input style="width:600px;" type="text" class="form-control" value="" id="text" name="text" placeholder="IP、域名、文件名、文件HASH（MD5/SHA1/SHA256）"/>
+            <div class="card">
+                <div class="header">
+                    <ul class="nav nav-tabs">
+                        <li id="tab_1" class="active"><a href="#" onclick="changetab(1)">IOC搜索</a></li>
+                        <li id="tab_2" ><a href="#" onclick="changetab(2)">全文搜索</a></li>
+                    </ul>
 
-                      </div>
-                  </form>
-              </div>
-          </div>
-        </div>
-      </div>
-    {% comment %}
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div style="margin-top:20px" class="header">
-              <div style="float: left;">
-                <h4 class="title">Latest Indicators</h4>
-                <p class="category">This table shows you the latest indicators entered into threat_note.</p>
-              </div>
-              <div style="float: right;">
-                <a href="/newobject" class="btn btn-info btn-fill"><i class="fa fa-plus"></i> New Object</a>
-                {% if importsetting %}
-                <a href="/import" class="btn btn-info btn-fill"><i class="fa fa-plus"></i> Import from Cuckoo</a>
-                {% endif %}
-              </div>
-            </div>
-
-            <div style="margin-top:60px" class="content table-responsive table-full-width">
-              <table class="table table-hover table-striped">
-                <thead>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Ioc Type</th>
-                  <th>Ioc</th>
-                  <th>Page</th>
-                  <th>Tags</th>
-                </thead>
-                <tbody>
-                {% for i in iocs %}
-                    <tr>
-                        <td>{{ i.name }}</td>
-                        <td>{{ i.date }}</td>
-                        <td>{{ i.ioc_type }}</td>
-                        <td>{{ i.ioc_match }}</td>
-                        <td>{{ i.ioc_page }}</td>
-                        <td></td>
-                    </tr>
-                {% endfor%}
-
-                  {% for p in network %}
-                  <tr>
-                    {% if p['type'] == "Threat Actor" %}
-                      <td><a href="/threatactors/{{ p['object'] }}/info">{{ p['object'] }}</a></td>
-                    {% elif p['type'] == "Hash" %}
-                      <td><a href="/files/{{ p['object'] }}/info">{{ p['object'] }}</a></td>
-                    {% else %}
-                      <td><a href="/network/{{ p['object'] }}/info">{{ p['object'] }}</a></td>
-                    {% endif %}
-
-                    <td>{ {p}['type'] }</td>
-
-                    {% if p['firstseen']|length == 0 %}
-                      <td>-</td>
-                    {% else %}
-                      <td>{{ p['firstseen'] }}</td>
-                    {% endif %}
-
-                    {% if p['lastseen']|length == 0 %}
-                      <td>-</td>
-                    {% else %}
-                      <td>{{ p['lastseen'] }}</td>
-                    {% endif %}
-
-                    {% if p['campaign']|length == 0 %}
-                      <td>-</td>
-                    {% else %}
-                      <td>{{ p['campaign'] }}</td>
-                    {% endif %}
-
-                    {% if p['confidence'] == "Low" %}
-                      <td><i class="fa fa-circle text-warning"></i> {{ p['confidence'] }}</td>
-                    {% elif p['confidence'] == "Medium" %}
-                      <td><i class="fa fa-circle text-info"></i> {{ p['confidence'] }}</td>
-                    {% elif p['confidence'] == "High" %}
-                      <td><i class="fa fa-circle text-danger"></i> {{ p['confidence'] }}</td>
-                    {% endif %}
-
-                    <td>{{ p['diamondmodel'] }}</td>
-
-                    {% if p['tags']|length == 0 %}
-                      <td>-</td>
-                    {% else %}
-                      <td>{% for tag in p['tags'].split(",")[:4] %}
-                        <button type="button" class="btn btn-default btn-fill btn-xs"><a href="/tags#{{ tag }}" style="color:#FFF;"> {{ tag }}</a></button>
-                      {% endfor %}
-                      </td>
-                    {% endif %}
-
-                    <td class="td-actions text-right">
-                      <a href="/relationships/{{ p['object'] }}" role="button" rel="tooltip" title="Add Relationship" class="btn btn-info btn-simple btn-xs">
-                        <i class="fa fa-link"></i>
-                      </a>
-                      <a href="/edit/{{ p['object'] }}" role="button" rel="tooltip" title="Edit Indicator" class="btn btn-info btn-simple btn-xs">
-                        <i class="fa fa-pencil"></i>
-                      </a>
-                      <a href="/delete/network/{{ p['object'] }}" role="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                        <i class="fa fa-times"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  {% endfor %}
-
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="header">
-              <h4 class="title">Tag Cloud</h4>
-              <p class="category">Lists all the tags in your database</p>
-            </div>
-            <div class="content">
-              {% for tag in taglist %}
-              <button type="button" class="btn btn-default btn-fill btn-sm"><a href="/tags#{{ tag.name }}" style="color:#FFF;"> {{ tag.name }}</a></button>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="header">
-              <h4 class="title">Campaign Statistics</h4>
-              <p class="category">Breakdown of Indicators per Campaign</p>
-            </div>
-            <div class="content">
-              <div id="chart1" class="ct-chart ct-perfect-fourth"></div>
-              <div class="footer">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-clock-o"></i> Latest information available
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card ">
-            <div class="header">
-              <h4 class="title">Indicator Type</h4>
-              <p class="category">Breakdown of Indicators by Type</p>
-            </div>
-            <div class="content">
-              <div id="chartActivity" class="ct-chart"></div>
-            </div>
-          </div>
+                <div class="content table-responsive table-full-width" name="tab_div" id="tab_1_content" style="max-width:700px;min-width: 700px">
+                        <div>
+                            <form method="post" action="/searchioc">
+                                {% csrf_token %}
+                                    <div style="margin-top:20px;float: right;margin-left: 1px">
+                                        <input type="submit" class="btn btn-info btn-fill" value="搜索" />
+                                    </div>
+                                    <div style="margin-top:20px;float: left;">
+                                        <input style="width:600px;" type="text" class="form-control" value="" id="text" name="text" placeholder="IP、域名、文件名、文件HASH（MD5/SHA1/SHA256）"/>
+
+                                    </div>
+                            </form>
+                        </div>
+                </div>
+                <div class="content table-responsive table-full-width" name="tab_div" id="tab_2_content" style="max-width:700px;min-width: 700px;display: none">
+                        <div>
+                            <form method="post" action="/searchioc">
+                                {% csrf_token %}
+                                    <div style="margin-top:20px;float: right;margin-left: 1px">
+                                        <input type="submit" class="btn btn-info btn-fill" value="搜索" />
+                                    </div>
+                                    <div style="margin-top:20px;float: left;">
+                                        <input style="width:600px;" type="text" class="form-control" value="" id="text" name="text" placeholder="RSS标题/RSS内容"/>
+
+                                    </div>
+                            </form>
+                        </div>
+                </div>
         </div>
       </div>
-    </div>
-    {% endcomment %}
+
     </div>
 
     </div>
 {% include "footer.html" %}
     </div>
+    </div>
 
-{% endblock content %}
-{% comment %}
-<script>
-var data = {
-   labels: [
-          {% for i in networks %}
-          "{{ i['category'] }}",
-          {% endfor %}
-          ],
-          series: [
-          {% for i in networks %}
-          "{{ i['value'] }}",
-          {% endfor %}
-          ]
-};
-
-var options = {
-  labelInterpolationFnc: function(value) {
-    return value[0]
-  }
-};
-
-var responsiveOptions = [
-  ['screen and (min-width: 640px)', {
-    chartPadding: 5,
-    labelOffset: 10,
-    labelDirection: 'explode',
-    labelInterpolationFnc: function(value) {
-      return value;
+    <script type="text/javascript">
+    function changetab(tabid) {
+        for(i=1;i<=2;i++) {
+            document.getElementById("tab_"+i).className=""; //将所有的层都隐藏
+        }
+        document.getElementById("tab_"+tabid).className="active";//显示当前层
+        var divs = document.getElementsByName("tab_div");
+        for(var i = 0; i < divs.length; i++) {
+                    var divv = divs[i];
+                    if(divv == document.getElementById("tab_" + tabid + "_content")) {
+                        divv.style.display = "block";
+                    } else {
+                        divv.style.display = "none";
+                    }
+        }
     }
-  }],
-  ['screen and (min-width: 400px)', {
-    labelOffset: 57,
-    chartPadding: 20
-  }]
-];
-
-new Chartist.Pie('#chart1', data, options, responsiveOptions);
-</script>
-<% comment %>
-<script>
-
-new Chartist.Bar('#chartActivity', {
-  labels: [ {% for i in typelist %}
-          "{{ i['category'] }}",
-          {% endfor %}],
-  series: [{% for i in typelist %}
-          "{{ i['value'] }}",
-          {% endfor %}]
-}, {
-  distributeSeries: true
-});
-</script>
-{% endcomment %}
+    </script>
+{% endblock content %}

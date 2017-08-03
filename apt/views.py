@@ -13,7 +13,8 @@ from models import message_user
 import time
 import traceback
 import logging
-
+import datetime
+import pytz
 # Create your views here.
 def login_decorator(func):
     """
@@ -431,7 +432,10 @@ def news(request):
                             else:
                                 messages['isread'] = False
                             messages['id'] = r.id
-                            messages['date'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(r.date)))
+                            try:
+                                messages['date'] = time.strftime('%Y-%m-%d %H:%M:%S',time.gmtime(float(r.date) + 8 * 60 * 60))
+                            except:
+                                messages['date'] = ''
                             messages['title'] = r.title
                             messages['rssname'] = r.rssname
                             messages['link'] = r.link
@@ -455,7 +459,10 @@ def news(request):
                 else:
                     messages['isread'] = False
                 messages['id'] = r.id
-                messages['date'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(r.date)))
+                try:
+                    messages['date'] = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(float(r.date)+8*60*60))
+                except:
+                    messages['date'] = ''
                 messages['title'] = r.title
                 messages['rssname'] = r.rssname
                 messages['link'] = r.link
