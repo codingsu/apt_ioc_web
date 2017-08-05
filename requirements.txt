@@ -12,7 +12,7 @@ sudo pip install rfc822
 sudo pip install smtplib
 sudo pip install email
 sudo pip install selenium
-
+sudo pip install pytz
 
 #es
 #安装中文分词ik

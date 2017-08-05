@@ -125,7 +125,7 @@
                             <td>{{ i.title }}</td>
                             <td>{{ i.rssname }}</td>
                             <td>{{ i.tags }}</td>
-                            {% if i.filedir == '' %}
+                            {% if i.filedir == '' or i.filedir == '-' %}
                                 <td>暂无快照</td>
                             {% else %}
                                 <td><a href="javascript:void(0);" onclick="seepdf('{{ i.filedir }}')">阅读</a></td>

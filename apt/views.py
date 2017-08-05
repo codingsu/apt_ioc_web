@@ -13,8 +13,9 @@ from models import message_user
 import time
 import traceback
 import logging
-import datetime
-import pytz
+from es.test import *
+
+
 # Create your views here.
 def login_decorator(func):
     """
@@ -509,6 +510,29 @@ def readNew(request):
         print traceback.format_exc()
         logging.error(traceback.format_exc())
         return errorhtml(request)
+
+@login_decorator
+def contextseacher(request):
+    '''
+    es全文搜索
+    :param request:
+    :return:
+    '''
+    try:
+        if request.method == 'POST':
+            word = request.POST['text']
+            links = findfromes(word)
+            rss = []
+            for link in links:
+                result = rssmessage.objects.filter(link=link)
+                if len(result) > 0:
+                    rss.append(result[0])
+            # print rss
+            return render(request, 'newlist.html', {'messages': rss, 'allmessages': rss})
+    except Exception:
+        traceback.format_exc()
+        return errorhtml(request)
+
 
 
 @login_decorator
