@@ -86,7 +86,11 @@
                                 </table>
                             </div>
                             <div class="panel-body" style="height:600px;">
-                                <iframe style="width: 100%;height:100%;display:inline-table;" src="{{ i.filedir }}"></iframe>
+                                {% if i.filedir == '-' or i.filedir == '' %}
+                                    暂无快照
+                                {% else %}
+                                    <iframe style="width: 100%;height:100%;display:inline-table;" src="{{ i.filedir }}"></iframe>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
