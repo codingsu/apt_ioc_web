@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+<script src="../../static/js/pdfobject.js"></script>
+{% block content %}
+<div class="main-panel">
+  <nav class="navbar navbar-default navbar-fixed">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">消息列表</a>
+    </div>
+    {% include "userdropdown.html" %}
+  </div>
+</nav>
+
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+
+              <div class="card">
+                <div class="header">
+                    <p>搜索结果</p>
+                  <!--<div style="float: left;">
+                    <h4 class="title"></h4>
+                  </div>-->
+                </div>
+                <div class="panel-group" id="accordion">
+                <table class="table table-hover  table-striped">
+                    {% for i in messages %}
+                       <tr> <td style="width: 100%;height:100%;display:inline-table;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapse{{ i.id }}">
+                                    {{ i.title }}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse{{ i.id }}" class="panel-collapse collapse" >
+                            <div class="panel-body">
+                                <table style="table-layout:fixed;" class="table table-responsive table-hover table-striped">
+                                  <thead>
+                                    <th>发布时间</th>
+                                    <th>网址</th>
+                                    <th>IP</th>
+                                    <th>文件名</th>
+                                    <th>散列值</th>
+                                  </thead>
+                                    <tbody>
+                                        <td width="20%" style="word-wrap:break-word;word-break:break-all;">{{ i.date }}</td>
+                                        <td width="40%" style="word-wrap:break-word;word-break:break-all;">
+                                            {% for t in i.url %}
+                                                {{ t }}<br>
+                                            {% empty %}
+                                                N/A
+                                            {% endfor %}
+                                        </td>
+                                        <td width="10%" style="word-wrap:break-word;word-break:break-all;">
+                                            {% for t in i.host %}
+                                                {{ t }}<br>
+                                            {% empty %}
+                                                N/A
+                                            {% endfor %}
+                                        </td>
+                                        <td width="10%" style="word-wrap:break-word;word-break:break-all;">
+                                            {% for t in i.filename %}
+                                                {{ t }}<br>
+                                            {% empty %}
+                                                N/A
+                                            {% endfor %}
+                                        </td>
+                                        <td width="20%" style="word-wrap:break-word;word-break:break-all;">
+                                            {% for t in i.sha1 %}
+                                                {{ t }}<br>
+                                            {% empty %}
+                                                N/A
+                                            {% endfor %}
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-body" style="height:600px;">
+                                <iframe style="width: 100%;height:100%;display:inline-table;" src="{{ i.filedir }}"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                        </td></tr>
+                    {% endfor %}
+                </table>
+                </div>
+                {% comment %}<div name="tab_div" id="tab_1_content" style="margin-top:30px" class="content table-responsive table-full-width">
+                  <table id="table_1" class="table table-hover table-striped">
+                    <thead>
+                      <th width="30px">发布者</th>
+                      <th width="100px">发布时间</th>
+                      <th width="100px">标题</th>
+                      <th width="100px">RSS来源</th>
+                      <th width="50px">快照</th>
+                      <th width="50px">详情</th>
+                    </thead>
+                    <tbody>
+                        {% for i in messages %}
+                        <tr>
+                            {% if i.author == '' %}
+                                <td>匿名</td>
+                            {% else %}
+                                <td>{{ i.author }}</td>
+                            {% endif %}
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.title }}</td>
+                            <td>{{ i.rssname }}</td>
+                            {% if i.filedir == '' %}
+                                <td>暂无快照</td>
+                            {% else %}
+                                <td><a href="javascript:void(0);" onclick="seepdf('{{ i.filedir }}')">阅读</a></td>
+                            {% endif %}
+                            <td><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
+                        </tr>
+                            <tr><td colspan="6">
+                                <table class="table table-hover table-striped">
+                                  <thead>
+                                    <th width="30px">发布者</th>
+                                    <th width="100px">发布时间</th>
+                                    <th width="100px">标题</th>
+                                    <th width="100px">RSS来源</th>
+                                    <th width="50px">快照</th>
+                                    <th width="50px">详情</th>
+                                  </thead>
+                                    <tbody>
+                                        <td>sadf</td>
+                                        <td>sadf</td>
+                                        <td>sadf</td>
+                                        <td>sadf</td>
+                                        <td>sadf</td>
+                                        <td>sadf</td>
+                                    </tbody>
+                                </table>
+                            </td></tr>
+                        {% endfor%}
+                    </tbody>
+                  </table>
+                    <!--<ul class="pager">
+                        <li><a href="#">Previous</a></li>
+                        <li><a href="#">Next</a></li>
+                    </ul>-->
+                    <div id="barcon1" name="barcon1"></div>
+                </div>
+                {% endcomment %}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "footer.html" %}
+      </div>
+    </div>
+    <script type="text/javascript">
+    function loadpdf(path,id) {
+        PDFObject.embed(path, id);
+    }
+
+    function seepdf(data) {
+        window.open(data);
+    }
+    function updatenews(data,id)
+    {
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET","readnew?id="+id,true);
+        xmlhttp.send();
+        window.open(data);
+        document.location.reload();
+
+    }
+    function fun(){
+        obj = document.getElementsByName("checkbox");
+        url ="readnew?id="
+        isfirst = true
+        n=0
+        for(k in obj){
+            if(obj[k].checked){
+                if(isfirst){
+                    url += obj[k].value
+                    isfirst = false
+                }else {
+                    url += "-" + obj[k].value
+                }
+                n+=1
+            }
+
+        }
+
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send();
+        document.location.reload();
+    }
+    function changetab(tabid) {
+        for(i=1;i<=2;i++) {
+            document.getElementById("tab_"+i).className=""; //将所有的层都隐藏
+        }
+        document.getElementById("tab_"+tabid).className="active";//显示当前层
+        var divs = document.getElementsByName("tab_div");
+        for(var i = 0; i < divs.length; i++) {
+                    var divv = divs[i];
+                    if(divv == document.getElementById("tab_" + tabid + "_content")) {
+                        divv.style.display = "block";
+                    } else {
+                        divv.style.display = "none";
+                    }
+        }
+    }
+    function goPage(pno,tableid,barconid) {
+        var itable = document.getElementById(tableid);
+        var num = itable.rows.length;//表格所有行数(所有记录数)
+        var totalPage = 0;//总页数
+        var pageSize = 10;//每页显示行数
+        //总共分几页
+        if(num/pageSize > parseInt(num/pageSize)){
+                totalPage=parseInt(num/pageSize)+1;
+           }else{
+               totalPage=parseInt(num/pageSize);
+           }
+        var currentPage = pno;//当前页数
+        var startRow = (currentPage - 1) * pageSize+1;//开始显示的行  31
+           var endRow = currentPage * pageSize;//结束显示的行   40
+           endRow = (endRow > num)? num : endRow;
+           //遍历显示数据实现分页
+        for(var i=1;i<(num+1);i++){
+            var irow = itable.rows[i-1];
+            if(i>=startRow && i<=endRow){
+                irow.style.display = "";
+            }else{
+                irow.style.display = "none";
+            }
+        }
+        itable.rows[0].style.display = "";
+        var tempStr = "<ul class=\"pager\">"
+        tempStr += "共"+num+"条记录 分"+totalPage+"页 当前第"+currentPage+"页";
+        if(currentPage>1){
+            tempStr += "<li><a href=\"#\" onClick=\"goPage("+(1)+",\'"+tableid+"\',\'"+barconid+"\')\">首页</a></li>";
+            tempStr += "<li><a href=\"#\" onClick=\"goPage("+(currentPage-1)+",\'"+tableid+"\',\'"+barconid+"\')\"><上一页</a></li>";
+        }else{
+            tempStr += "<li><a href=\"#\" disable>首页</a></li>";
+            tempStr += "<li><a href=\"#\" disable><上一页</a></li>";
+        }
+
+        if(currentPage<totalPage){
+            tempStr += "<li><a href=\"#\" onClick=\"goPage("+(currentPage+1)+",\'"+tableid+"\',\'"+barconid+"\')\">下一页></a></li>";
+            tempStr += "<li><a href=\"#\" onClick=\"goPage("+(totalPage)+",\'"+tableid+"\',\'"+barconid+"\')\">尾页</a></li>";
+        }else{
+            tempStr += "<li><a href=\"#\" disable>下一页></a></li>";
+            tempStr += "<li><a href=\"#\" disable>尾页</a></li>";
+        }
+        tempStr+="</ul>"
+        document.getElementById(barconid).innerHTML = tempStr;
+        }
+{#    goPage(1,'table_1','barcon1');#}
+{#    goPage(1,'table_2','barcon2');#}
+    </script>
+{% endblock content %}
+

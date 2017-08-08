@@ -526,11 +526,38 @@ def contextseacher(request):
             for link in links:
                 result = rssmessage.objects.filter(link=link)
                 if len(result) > 0:
-                    rss.append(result[0])
+                    messages = {}
+                    messages['id'] = result[0].id
+                    link = result[0].link+'\n'
+                    iocs = ioc.objects.filter(ioc_oriurl=link)
+                    messages['url'] = []
+                    messages['host'] = []
+                    messages['filename'] = []
+                    messages['sha1'] = []
+                    for i in iocs:
+                        if i.ioc_type == 'URL':
+                            messages['url'].append(i.ioc_match)
+                        elif i.ioc_type == 'Host':
+                            messages['host'].append(i.ioc_match)
+                        elif i.ioc_type == 'Filename':
+                            messages['filename'].append(i.ioc_match)
+                        elif i.ioc_type == 'SHA1':
+                            messages['sha1'].append(i.ioc_match)
+                    try:
+                        messages['date'] = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(float(result[0].date) + 8 * 60 * 60))
+                    except:
+                        messages['date'] = ''
+                    messages['title'] = result[0].title
+                    messages['rssname'] = result[0].rssname
+                    messages['link'] = result[0].link
+                    messages['author'] = result[0].author
+                    messages['tags'] = ''
+                    messages['filedir'] = result[0].filedir
+                    rss.append(messages)
             # print rss
-            return render(request, 'newlist.html', {'messages': rss, 'allmessages': rss})
+            return render(request, 'contextsearchlist.html', {'messages': rss, 'allmessages': rss})
     except Exception:
-        traceback.format_exc()
+        print traceback.format_exc()
         return errorhtml(request)
 
 
