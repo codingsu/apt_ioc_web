@@ -30,7 +30,7 @@
                   </div>-->
                 </div>
                 <div class="panel-group" id="accordion">
-                <table class="table table-hover  table-striped">
+                <table id="table_1" class="table table-hover  table-striped">
                     {% for i in messages %}
                        <tr> <td style="width: 100%;height:100%;display:inline-table;">
                     <div class="panel panel-default">
@@ -97,6 +97,8 @@
                         </td></tr>
                     {% endfor %}
                 </table>
+                    <div id="barcon1" name="barcon1"></div>
+
                 </div>
                 {% comment %}<div name="tab_div" id="tab_1_content" style="margin-top:30px" class="content table-responsive table-full-width">
                   <table id="table_1" class="table table-hover table-striped">
@@ -266,7 +268,7 @@
         tempStr+="</ul>"
         document.getElementById(barconid).innerHTML = tempStr;
         }
-{#    goPage(1,'table_1','barcon1');#}
+    goPage(1,'table_1','barcon1');
 {#    goPage(1,'table_2','barcon2');#}
     </script>
 {% endblock content %}

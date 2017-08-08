@@ -33,7 +33,7 @@
                   </div>-->
                 </div>
                 <div name="tab_div" id="tab_1_content" style="margin-top:30px" class="content table-responsive table-full-width">
-                  <table id="table_1" class="table table-hover table-striped">
+                  <table id="table_1" style="table-layout:fixed;" class="table table-hover table-striped">
                     <div style="margin-left: 15px" class="btn-group-sm">
                         <button type="button" class="btn btn-success" onclick="fun()">标记已读</button>
                         <!--<button type="button" class="btn btn-default">按钮 2</button>
@@ -42,7 +42,7 @@
                     <thead>
                       <th width="30px">-</th>
                       <th width="30px">已读</th>
-                      <th width="30px">发布者</th>
+                      <th width="50px">发布者</th>
                       <th width="100px">发布时间</th>
                       <th width="100px">标题</th>
                       <th width="100px">RSS来源</th>
@@ -64,18 +64,18 @@
                             {% if i.author == '' %}
                                 <td>匿名</td>
                             {% else %}
-                                <td>{{ i.author }}</td>
+                                <td style="word-wrap:break-word;word-break:break-all;">{{ i.author }}</td>
                             {% endif %}
-                            <td>{{ i.date }}</td>
-                            <td>{{ i.title }}</td>
-                            <td>{{ i.rssname }}</td>
-                            <td>{{ i.tags }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.date }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.title }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.rssname }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.tags }}</td>
                             {% if i.filedir == '' %}
                                 <td>暂无快照</td>
                             {% else %}
                                 <td><a href="javascript:void(0);" onclick="seepdf('{{ i.filedir }}')">阅读</a></td>
                             {% endif %}
-                            <td><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
+                            <td style="word-wrap:break-word;word-break:break-all;"><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
                         </tr>
                         {% endfor%}
                     </tbody>
@@ -88,7 +88,7 @@
                 </div>
                 <div name="tab_div" id="tab_2_content" style="margin-top:30px; display: none" class="content table-responsive table-full-width">
 
-                  <table id="table_2" class="table table-hover table-striped">
+                  <table id="table_2" style="table-layout:fixed;" class="table table-hover table-striped">
                     <div style="margin-left: 15px" class="btn-group-sm">
                         <button type="button" class="btn btn-success" onclick="fun()">标记已读</button>
                         <!--<button type="button" class="btn btn-default">按钮 2</button>
@@ -97,7 +97,7 @@
                     <thead>
                       <th width="30px">-</th>
                       <th width="30px">已读</th>
-                      <th width="30px">发布者</th>
+                      <th width="50px">发布者</th>
                       <th width="100px">发布时间</th>
                       <th width="100px">标题</th>
                       <th width="100px">RSS来源</th>
@@ -119,18 +119,18 @@
                             {% if i.author == '' %}
                                 <td>匿名</td>
                             {% else %}
-                                <td>{{ i.author }}</td>
+                                <td style="word-wrap:break-word;word-break:break-all;">{{ i.author }}</td>
                             {% endif %}
-                            <td>{{ i.date }}</td>
-                            <td>{{ i.title }}</td>
-                            <td>{{ i.rssname }}</td>
-                            <td>{{ i.tags }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.date }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.title }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.rssname }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.tags }}</td>
                             {% if i.filedir == '' or i.filedir == '-' %}
                                 <td>暂无快照</td>
                             {% else %}
                                 <td><a href="javascript:void(0);" onclick="seepdf('{{ i.filedir }}')">阅读</a></td>
                             {% endif %}
-                            <td><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
+                            <td style="word-wrap:break-word;word-break:break-all;"><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
                         </tr>
                         {% endfor%}
                     </tbody>
