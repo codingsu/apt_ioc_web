@@ -554,8 +554,9 @@ def contextseacher(request):
                     messages['tags'] = ''
                     messages['filedir'] = result[0].filedir
                     rss.append(messages)
+            rss.sort(key=lambda obj: obj['date'], reverse=True)
             # print rss
-            return render(request, 'contextsearchlist.html', {'messages': rss, 'allmessages': rss})
+            return render(request, 'contextsearchlist.html', {'messages': rss})
     except Exception:
         print traceback.format_exc()
         return errorhtml(request)
