@@ -30,7 +30,7 @@
                 </div>
 
                 <div style="margin-top:60px" class="content table-responsive table-full-width">
-                  <table id="table_1" name="table_1" class="table table-hover table-striped">
+                  <table id="table_1" name="table_1" style="table-layout:fixed;" class="table table-hover table-striped">
                     <thead>
                       <th width="30px">标题</th>
                       <th width="30px">日期</th>
@@ -43,13 +43,13 @@
                     <tbody>
                         {% for ioc in iocs %}
                         <tr>
-                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{{ ioc.name }}</td>
-                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{{ ioc.date }}</td>
-                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis">{{ ioc.ioc_type }}</td>
-                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{{ ioc.ioc_match }}</td>
-                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis">{{ ioc.ioc_page }}</td>
-                            <td style="max-width: 200px;overflow: hidden; text-overflow:ellipsis">{{ ioc.ioc_rss }}</td>
-                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis"><a href="{{ ioc.ioc_oriurl }}" target="_blank">原网页</a></td>
+                            <td style="word-wrap:break-word;word-break:break-all;" >{{ ioc.name }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ ioc.date }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ ioc.ioc_type }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ ioc.ioc_match }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ ioc.ioc_page }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ ioc.ioc_rss }}</td>
+                            <td style="word-wrap:break-word;word-break:break-all;"><a href="{{ ioc.ioc_oriurl }}" target="_blank">原网页</a></td>
                         </tr>
                         {% endfor%}
                     </tbody>
