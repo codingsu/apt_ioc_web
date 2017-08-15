@@ -122,56 +122,68 @@ def board(request):
     :param request:
     :return:
     """
-    iocs = ioc.objects.all()
-    # init data
-    counts = 0
-    taglist = iocTag.objects.all()
-    campaigns = []
-    types = []
-    iocs = ioc.objects.all()
-    # Generate iocTag Cloud
+    try:
+        iocs = ioc.objects.all()
+        # init data
+        counts = 0
+        taglist = iocTag.objects.all()
+        campaigns = []
+        types = []
+        iocs = ioc.objects.all()
+        # Generate iocTag Cloud
 
 
-    dictcount = {}
-    dictlist = []
-    typecount = {}
-    typelist = []
-    # Generate Campaign Statistics Graph
-    for object in campaigns:
-        # c = Indicator.query.filter_by(campaign=object.campaign).count()
-        c = 0
-        if object.campaign == '':
-            dictcount["category"] = "Unknown"
-            tempx = (float(c) / float(counts)) * 100
-            dictcount["value"] = round(tempx, 2)
-        else:
-            dictcount["category"] = object.campaign
-            tempx = (float(c) / float(counts)) * 100
-            dictcount["value"] = round(tempx, 2)
+        dictcount = {}
+        dictlist = []
+        typecount = {}
+        typelist = []
+        # Generate Campaign Statistics Graph
+        for object in campaigns:
+            # c = Indicator.query.filter_by(campaign=object.campaign).count()
+            c = 0
+            if object.campaign == '':
+                dictcount["category"] = "Unknown"
+                tempx = (float(c) / float(counts)) * 100
+                dictcount["value"] = round(tempx, 2)
+            else:
+                dictcount["category"] = object.campaign
+                tempx = (float(c) / float(counts)) * 100
+                dictcount["value"] = round(tempx, 2)
 
-        dictlist.append(dictcount.copy())
+            dictlist.append(dictcount.copy())
 
-    # Generate Indicator Type Graph
-    for t in types:
-        # c = Indicator.query.filter_by(type=t.type).count()
-        c = 0
-        typecount["category"] = t.type
-        tempx = float(c) / float(counts)
-        newtemp = tempx * 100
-        typecount["value"] = round(newtemp, 2)
-        typelist.append(typecount.copy())
-    favs = []
+        # Generate Indicator Type Graph
+        for t in types:
+            # c = Indicator.query.filter_by(type=t.type).count()
+            c = 0
+            typecount["category"] = t.type
+            tempx = float(c) / float(counts)
+            newtemp = tempx * 100
+            typecount["value"] = round(newtemp, 2)
+            typelist.append(typecount.copy())
+        favs = []
 
-    # Add Import from Cuckoo button to Dashboard page
-    # settings = Setting.query.filter_by(_id=1).first()
-    # settings = []
-    # if 'on' in settings.cuckoo:
-    #     importsetting = True
-    # else:
-    #     importsetting = False
-    importsetting = False
-    return render(request, 'dashboard.html', {'networks': dictlist, 'iocs': iocs, 'favs': favs, 'typelist': typelist,
-                                              'taglist': taglist, 'importsetting': importsetting})
+        urlcount = ioc.objects.filter(ioc_type='URL').count()
+        hostcount = ioc.objects.filter(ioc_type='HOST').count()
+        filecount = ioc.objects.filter(ioc_type='FILENAME').count()
+        hashcount = ioc.objects.filter(ioc_type='SHA1').count() + ioc.objects.filter(ioc_type='MD5').count()
+
+        # Add Import from Cuckoo button to Dashboard page
+        # settings = Setting.query.filter_by(_id=1).first()
+        # settings = []
+        # if 'on' in settings.cuckoo:
+        #     importsetting = True
+        # else:
+        #     importsetting = False
+        importsetting = False
+        return render(request, 'dashboard.html',
+                      {'networks': dictlist, 'iocs': iocs, 'favs': favs, 'typelist': typelist,
+                       'taglist': taglist, 'importsetting': importsetting, 'urlcount': urlcount,
+                       'hostcount': hostcount, 'filecount': filecount, 'hashcount': hashcount})
+    except:
+        print traceback.format_exc()
+        return errorhtml(request)
+
 
 @login_decorator
 def rsslist(request):
