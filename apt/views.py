@@ -316,10 +316,10 @@ def savekeyfilter(request):
                 print traceback.format_exc()
                 m = keyfilter.objects.create(name=name,keyword=keyword,keycheck=keycheck)
                 m.save()
-            userid = request.session['user_id']
-            u = user.objects.get(id=userid)
-            key = keyfilter_user.objects.create(user_id=u,keyfilter_id=m)
-            key.save()
+                userid = request.session['user_id']
+                u = user.objects.get(id=userid)
+                key = keyfilter_user.objects.create(user_id=u,keyfilter_id=m)
+                key.save()
         return keyfilters(request)
     except:
         traceback.print_exc()
@@ -518,8 +518,13 @@ def news(request):
                 return -1
     try:
         if request.method == 'GET':
+            uid = request.session['user_id']
+            u = user.objects.get(id=uid)
             rms = list(rssmessage.objects.all())
-            keyfilters = keyfilter.objects.all()
+            key_user = keyfilter_user.objects.filter(user_id=u)
+            keyfilters = []
+            for i in key_user:
+                keyfilters.append(keyfilter.objects.filter(id=i.keyfilter_id.id)[0])
             somem = []
             userid = request.session['user_id']
             new_id = list(message_user.objects.filter(user_id=userid).values('message_id'))
