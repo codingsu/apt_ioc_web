@@ -196,7 +196,13 @@ def rsslist(request):
     :return:
     """
     rsslist = rss.objects.all()
-    return render(request, 'rsslist.html', {'rsslist':rsslist})
+    uid = request.session['user_id']
+    u = user.objects.get(id=uid)
+    level = user_level.objects.filter(user_id=u)[0].level
+    iseditrss = False
+    if level == 1:
+        iseditrss = True
+    return render(request, 'rsslist.html', {'rsslist':rsslist,'iseditrss':iseditrss})
 
 @login_decorator
 def toeditrss(request):
@@ -223,6 +229,11 @@ def saverss(request):
     :return:
     """
     if request.method == 'POST':
+        uid = request.session['user_id']
+        u = user.objects.get(id=uid)
+        level = user_level.objects.filter(user_id=u)[0].level
+        if level != 1:
+            return rsslist(request)
         rssid = request.POST['id']
         rsstitle = request.POST['text']
         rssothername = request.POST['othername']

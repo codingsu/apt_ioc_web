@@ -29,10 +29,11 @@
                     <h4 class="title">RSS列表</h4>
                     <p class="category"></p>
                   </div>
+                    {% if iseditrss %}
                   <div style="float: right;">
                     <a href="/tonewrss" class="btn btn-info btn-fill"><i class="fa fa-plus"></i>新建RSS</a>
                   </div>
-
+                    {% endif %}
                 </div>
 
                 <div style="margin-top:60px" class="content table-responsive  table-full-width">
@@ -42,7 +43,9 @@
                       <th width="20%">名字</th>
                       <th width="20%" >别称</th>
                       <th width="45%">链接</th>
+                      {% if iseditrss %}
                       <th width="5%" style="float: right;">修改</th>
+                      {% endif %}
                     </thead>
                     <tbody>
                       {% for i in rsslist %}
@@ -52,14 +55,16 @@
                         <td  style="word-wrap:break-word;word-break:break-all;">{{ i.text }}</td>
                         <td style="word-wrap:break-word;word-break:break-all;">{{ i.othername }}</td>
                         <td  style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;word-wrap:break-word;word-break:break-all;">{{ i.url }}</td>
+                            {% if iseditrss %}
                         <td  class="td-actions text-right" style="word-wrap:break-word;word-break:break-all;">
-                                <a href="/toeditrss?id={{ i.id }}" role="button" rel="tooltip" title="Edit Indicator" class="btn btn-info btn-simple btn-xs">
+                                <a href="/toeditrss?id={{ i.id }}" role="button" rel="tooltip" title="编辑" class="btn btn-info btn-simple btn-xs">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <a href="/deleterss?id={{ i.id }}" role="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                <a href="/deleterss?id={{ i.id }}" role="button" rel="tooltip" title="删除" class="btn btn-danger btn-simple btn-xs">
                                     <i class="fa fa-times"></i>
                             </a>
                         </td>
+                        {% endif %}
                       </tr>
                       {% endfor %}
                     </tbody>
