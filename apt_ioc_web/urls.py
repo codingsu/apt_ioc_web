@@ -39,4 +39,6 @@ urlpatterns = [
     url(r'^saveuser', apt_views.tosaveuser, name='saveuser'),
     url(r'^testpdf', apt_views.showpdf,name='showpdf'),
     url(r'^contextseacher', apt_views.contextseacher,name='contextseacher'),
+    url(r'^deleteuser',apt_views.deleteuser, name='deleteuser'),
+    url(r'^tonewuser', apt_views.tonewuser, name='tonewuser'),
 ]

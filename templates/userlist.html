@@ -12,7 +12,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">消息设置</a>
+      <a class="navbar-brand" href="#">用户管理</a>
     </div>
     {% include "userdropdown.html" %}
   </div>
@@ -24,12 +24,14 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="header">
-                  <h4 class="title">消息提醒</h4>
-                    <div style="float: right;"><a href="/tonewkeyfilter" class="btn btn-info btn-fill"><i class="fa fa-plus"></i>新建推送</a>
+                  <h4 class="title">用户管理</h4>
+                    <div style="float: right; margin-left: 30px"><a href="/tonewuser?isnew=False" class="btn btn-info btn-fill">修改个人信息</a>
+                  </div>
+                    <div style="float: right;"><a href="/tonewuser?isnew=True" class="btn btn-info btn-fill"><i class="fa fa-plus"></i>新建用户</a>
                   </div>
                 </div>
                 <div class="content">
-                  选择想要的消息推送
+                  用户列表
                   </p>
                 </div>
 
@@ -39,21 +41,20 @@
           <div style="margin-top:1px" class="content table-responsive table-full-width">
                   <table id="table_1" name="table_1" class="table table-hover table-striped">
                     <thead>
-                      <th width="30px">标签名称</th>
-                      <th width="30px">关键点</th>
-                      <th width="30px">关键词</th>
-                      <th width="30px">编辑</th>
+                      <th width="25%">用户id</th>
+                      <th width="25%">用户名称</th>
+                      <th width="25%">用户等级</th>
+                      <th width="25%">编辑</th>
                     </thead>
                     <tbody>
-                        {% for keyfilter in keyfilters %}
+                        {% for u in userlist %}
                         <tr>
-                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{{ keyfilter.name }}</td>
-                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{% if keyfilter.keycheck == "rsstitle" %}RSS标题{% elif keyfilter.keycheck == "iocmatch" %}IOC内容{% endif %}</td>
-                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis">{{ keyfilter.keyword }}</td>
-                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis"><div style="float: right"><a  href="/deletekeyfilter?id={{ keyfilter.id }}" class="btn btn-error btn-fill"><i style="width: 1px" class="fa"></i>删除推送</a>
+                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{{ u.id }}</td>
+                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis">{{ u.name }}</td>
+                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{% if u.level == 2 %}普通用户{% elif u.level != 2  %}临时用户{% endif %}</td>
+                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis"><div><a  href="/deleteuser?id={{ u.id }}" class="btn btn-error btn-fill"><i style="width: 1px" class="fa"></i>删除用户</a>
                   </div>
-                    <div style="float: bottom;"><a href="/toeditkeyfilter?id={{ keyfilter.id }}" class="btn btn-info btn-fill"><i style="width: 1px" class="fa"></i>编辑推送</a>
-                  </div></td>
+                    </td>
                         </tr>
                         {% endfor%}
                     </tbody>

@@ -40,8 +40,26 @@
                     <div class="row">
                       <div class="col-md-12">
                         <fieldset>
+                            {% if isnewuser %}
+                            <div class="form-group">
+                              <input type="hidden" class="form-control" name="id" id="id" value="">
+                                <input type="hidden" class="form-control" name="oldpwd" id="oldpwd" value="" >
+                            </div>
                           <div class="form-group">
-                            <input type="hidden" class="form-control" name="id" id="id" value="{{ user.id }}">
+                            <label>用户名</label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户的登录名" >
+                          </div>
+                          <div class="form-group">
+                            <label>密码</label>
+                            <input type="password" class="form-control" name="newpwd" id="newpwd" placeholder="请输入用户的密码" >
+                          </div>
+                          <div class="form-group">
+                            <label>校验密码</label>
+                            <input type="password" class="form-control" name="checknewpwd" id="checknewpwd" placeholder="请再次输入用户的密码" >
+                          </div>
+                            {% else %}
+                          <div class="form-group">
+                              <input type="hidden" class="form-control" name="id" id="id" value="{{ user.id }}">
                             </div>
                           <div class="form-group">
                             <label>用户名</label>
@@ -59,8 +77,9 @@
                             <label>校验新密码</label>
                             <input type="password" class="form-control" name="checknewpwd" id="checknewpwd" placeholder="请再次输入用户的新密码" >
                           </div>
+                            {% endif %}
                             <div style="float: right;">
-                              <a href="/rsslist" class="btn btn-info btn-fill">Cancel</a>
+                              <a href="/usersetting" class="btn btn-info btn-fill">返回</a>
 
                               <button onclick="send()" id='submitbt' type="button" class="btn btn-info btn-fill">提交</button>
 
@@ -98,6 +117,10 @@
                 data:message,
                 success:function (result) {
                     alert(result[1])
+                    if(result[0] == 2){
+                        window.location.href="/usersetting";
+                        return
+                    }
                     document.getElementById('oldpwd').value = ''
                     document.getElementById('newpwd').value = ''
                     document.getElementById('checknewpwd').value = ''

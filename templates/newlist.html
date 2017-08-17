@@ -224,7 +224,7 @@
         }
         itable.rows[0].style.display = "";
         var tempStr = "<ul class=\"pager\">"
-        tempStr += "共"+num+"条记录 分"+totalPage+"页 当前第"+currentPage+"页";
+        tempStr += "共"+(num-1)+"条记录 分"+totalPage+"页 当前第"+currentPage+"页";
         if(currentPage>1){
             tempStr += "<li><a href=\"#\" onClick=\"goPage("+(1)+",\'"+tableid+"\',\'"+barconid+"\')\">首页</a></li>";
             tempStr += "<li><a href=\"#\" onClick=\"goPage("+(currentPage-1)+",\'"+tableid+"\',\'"+barconid+"\')\"><上一页</a></li>";

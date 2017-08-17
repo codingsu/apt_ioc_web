@@ -10,10 +10,13 @@ from models import keyfilter
 from models import user
 from models import rssmessage
 from models import message_user
+from models import keyfilter_user
+from models import user_level
 import time
 import traceback
 import logging
 from es.test import *
+from django.db.models import Q
 
 
 # Create your views here.
@@ -277,8 +280,18 @@ def keyfilters(request):
     :param request:
     :return:
     """
-    ms = keyfilter.objects.all()
-    return render(request, 'keyfilter.html', {'keyfilters':ms})
+    try:
+        ms = []
+        userid = request.session['user_id']
+        keys = keyfilter_user.objects.filter(user_id=userid)
+        for key in keys:
+            temp = keyfilter.objects.filter(id=key.keyfilter_id.id)
+            ms.extend(temp)
+        return render(request, 'keyfilter.html', {'keyfilters': ms})
+    except:
+        traceback.print_exc()
+        return errorhtml(request)
+
 
 @login_decorator
 def savekeyfilter(request):
@@ -287,22 +300,31 @@ def savekeyfilter(request):
     :param request:
     :return:
     """
-    if request.method == 'POST':
-        mid = request.POST['id']
-        name = request.POST['name']
-        keyword = request.POST['keyword']
-        keycheck = request.POST['keycheck']
-        try:
-            m = keyfilter.objects.get(id=mid)
-            m.name = name
-            m.keyword = keyword
-            m.keycheck = keycheck
-            m.save()
-        except Exception,e:
-            print traceback.format_exc()
-            m = keyfilter.objects.create(name=name,keyword=keyword,keycheck=keycheck)
-            m.save()
-    return keyfilters(request)
+    try:
+        if request.method == 'POST':
+            mid = request.POST['id']
+            name = request.POST['name']
+            keyword = request.POST['keyword']
+            keycheck = request.POST['keycheck']
+            try:
+                m = keyfilter.objects.get(id=mid)
+                m.name = name
+                m.keyword = keyword
+                m.keycheck = keycheck
+                m.save()
+            except Exception,e:
+                print traceback.format_exc()
+                m = keyfilter.objects.create(name=name,keyword=keyword,keycheck=keycheck)
+                m.save()
+            userid = request.session['user_id']
+            u = user.objects.get(id=userid)
+            key = keyfilter_user.objects.create(user_id=u,keyfilter_id=m)
+            key.save()
+        return keyfilters(request)
+    except:
+        traceback.print_exc()
+        return errorhtml(request)
+
 
 @login_decorator
 def toeditkeyfilter(request):
@@ -365,7 +387,24 @@ def usersetting(request):
     uid = request.session['user_id']
     try:
         u = user.objects.get(id= uid)
-        return render(request, 'edituser.html', {'user':u})
+        ul = user_level.objects.get(user_id=u)
+        if ul.level == 1:
+            #找出所有管理员账号，管理员账号不能互相管理
+            u1 = user_level.objects.filter(level=1)
+            t = []
+            for u in u1:
+                t.append(u.user_id.id)
+            us = user.objects.filter(~Q(id__in=t))
+            userlist = []
+            for t in us:
+                u = {}
+                u['id'] = t.id
+                u['name'] = t.username
+                u['level'] = user_level.objects.get(user_id=t).level
+                userlist.append(u)
+            return render(request, 'userlist.html',{'userlist':userlist})
+        else:
+            return render(request, 'edituser.html', {'user':u,'isnewuser':False})
     except Exception,e:
         print traceback.format_exc()
         logging.error(traceback.format_exc())
@@ -381,25 +420,80 @@ def tosaveuser(request):
     uid = request.session['user_id']
     if request.is_ajax():
         try:
-            print request.GET
-            myid = int(request.GET.get('id'))
-            u1 = user.objects.get(id=myid)
-            #不能修改别人的信息
-            if myid != uid or user.objects.get(id=myid) == None:
-                return errorhtml(request)
-            else:
-                u = user.objects.get(id=myid)
-                username = request.GET.get('username')
-                oldpwd = request.GET.get('oldpwd')
-                newpwd = request.GET.get('newpwd')
-                if u.password != md5(oldpwd).hexdigest():
-                    print '密码错误'
-                    return JsonResponse((0,'旧密码输入错误！'),safe=False)
+            myid = request.GET.get('id')
+            loginuser = user.objects.get(id=uid)
+            #判断用户是否存在
+            try:
+                u1 = user.objects.get(id=myid)
+                if myid != str(uid):
+                    return errorhtml(request)
                 else:
-                    u.password = md5(newpwd).hexdigest()
-                    u.username = username
-                    u.save()
-                    return JsonResponse((1,'更改信息成功！'),safe=False)
+                    u = user.objects.get(id=myid)
+                    username = request.GET.get('username')
+                    oldpwd = request.GET.get('oldpwd')
+                    newpwd = request.GET.get('newpwd')
+                    if u.password != md5(oldpwd).hexdigest():
+                        print '密码错误'
+                        return JsonResponse((0, '旧密码输入错误！'), safe=False)
+                    else:
+                        u.password = md5(newpwd).hexdigest()
+                        u.username = username
+                        u.save()
+                        return JsonResponse((2, '更改信息成功！'), safe=False)
+            except:
+                #如果不存在
+                # 不能修改别人的信息
+                if myid != uid and user_level.objects.get(user_id=loginuser).level != 1:
+                    return errorhtml(request)
+                username = request.GET.get('username')
+                newpwd = request.GET.get('newpwd')
+                newpwd = md5(newpwd).hexdigest()
+                u = user.objects.create(username=username,password=newpwd)
+                u.save()
+                user_level.objects.create(user_id=u,level=2).save()
+                return JsonResponse((2, '创建用户成功！'), safe=False)
+
+        except Exception:
+            print traceback.format_exc()
+            logging.error(traceback.format_exc())
+            return errorhtml(request)
+
+@login_decorator
+def deleteuser(request):
+    """
+    删除用户
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        try:
+            uid = request.GET['id']
+            u = user.objects.get(id=uid)
+            u.delete()
+            return usersetting(request)
+        except Exception,e:
+            print traceback.format_exc()
+            logging.error(traceback.format_exc())
+            return errorhtml(request)
+
+@login_decorator
+def tonewuser(request):
+    """
+    准新建用户
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        isnew = request.GET['isnew']
+        print isnew
+        try:
+            if isnew == 'True':
+                return render(request, 'edituser.html', {'isnewuser': True})
+            else:
+                uid = request.session['user_id']
+                u = user.objects.get(id=uid)
+                return render(request, 'edituser.html', {'user':u,'isnewuser': False})
+
         except Exception:
             print traceback.format_exc()
             logging.error(traceback.format_exc())
@@ -523,6 +617,8 @@ def readNew(request):
         logging.error(traceback.format_exc())
         return errorhtml(request)
 
+
+
 @login_decorator
 def contextseacher(request):
     '''
@@ -572,7 +668,6 @@ def contextseacher(request):
     except Exception:
         print traceback.format_exc()
         return errorhtml(request)
-
 
 
 @login_decorator

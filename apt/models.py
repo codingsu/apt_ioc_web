@@ -42,3 +42,10 @@ class message_user(models.Model):
     user_id = models.ForeignKey(user,null=False)
     message_id = models.ForeignKey(rssmessage,null=False)
 
+class keyfilter_user(models.Model):
+    keyfilter_id = models.ForeignKey(keyfilter,null=False)
+    user_id = models.ForeignKey(user, null=False)
+
+class user_level(models.Model):
+    user_id = models.ForeignKey(user,null=False)
+    level = models.IntegerField(default=0)
