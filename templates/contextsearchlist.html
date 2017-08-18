@@ -117,7 +117,9 @@
     function loadpdf(obj,id) {
         obj.href = "#collapse"+id
         pdfiframe = document.getElementById("pdf"+id);
-        pdfiframe.src = pdfiframe.name
+        if(pdfiframe != null && pdfiframe.src == ""){
+                    pdfiframe.src = pdfiframe.name
+        }
     }
 
     function seepdf(data) {
