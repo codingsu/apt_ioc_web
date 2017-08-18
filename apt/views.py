@@ -546,7 +546,7 @@ def news(request):
             rms.sort(key=lambda obj:obj.id in new_ids, reverse=False)
             for r in rms:
                 for key in keyfilters:
-                    keywordlist = key.keyword.split(' ')
+                    keywordlist = re.split(u'[,，]',key.keyword)
                     for word in keywordlist:
                         if word in r.title.lower():
                             messages = {}
