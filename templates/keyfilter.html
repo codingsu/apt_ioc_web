@@ -51,8 +51,9 @@
                             <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{% if keyfilter.keycheck == "rsstitle" %}RSS标题{% elif keyfilter.keycheck == "iocmatch" %}IOC内容{% endif %}</td>
                             <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis">
                                 {% for word in keyfilter.keyword %}
-                                    <span class="label label-success">{{ word }}</span>
-
+                                    <div style="line-height:25px;display: inline" >
+                                    <span  class="label label-success">{{ word }}</span>
+                                    </div>
                                 {% endfor %}
                                     </td>
                             <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis"><div style="float: right"><a  href="/deletekeyfilter?id={{ keyfilter.id }}" class="btn btn-error btn-fill"><i style="width: 1px" class="fa"></i>删除推送</a>
