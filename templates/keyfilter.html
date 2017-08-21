@@ -47,9 +47,9 @@
                     <tbody>
                         {% for keyfilter in keyfilters %}
                         <tr>
-                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{{ keyfilter.name }}</td>
-                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{% if keyfilter.keycheck == "rsstitle" %}RSS标题{% elif keyfilter.keycheck == "iocmatch" %}IOC内容{% endif %}</td>
-                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis">
+                            <td style="max-width: 150px;overflow: hidden; text-overflow:ellipsis">{{ keyfilter.name }}</td>
+                            <td style="max-width: 150px;overflow: hidden; text-overflow:ellipsis">{% if keyfilter.keycheck == "rsstitle" %}RSS标题{% elif keyfilter.keycheck == "iocmatch" %}IOC内容{% endif %}</td>
+                            <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">
                                 {% for word in keyfilter.keyword %}
                                     <div style="line-height:25px;display: inline" >
                                     <span  class="label label-success">{{ word }}</span>
