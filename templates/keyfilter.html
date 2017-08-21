@@ -49,7 +49,12 @@
                         <tr>
                             <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{{ keyfilter.name }}</td>
                             <td style="max-width: 300px;overflow: hidden; text-overflow:ellipsis">{% if keyfilter.keycheck == "rsstitle" %}RSS标题{% elif keyfilter.keycheck == "iocmatch" %}IOC内容{% endif %}</td>
-                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis">{{ keyfilter.keyword }}</td>
+                            <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis">
+                                {% for word in keyfilter.keyword %}
+                                    <span class="label label-success">{{ word }}</span>
+
+                                {% endfor %}
+                                    </td>
                             <td style="max-width: 100px;overflow: hidden; text-overflow:ellipsis"><div style="float: right"><a  href="/deletekeyfilter?id={{ keyfilter.id }}" class="btn btn-error btn-fill"><i style="width: 1px" class="fa"></i>删除推送</a>
                   </div>
                     <div style="float: bottom;"><a href="/toeditkeyfilter?id={{ keyfilter.id }}" class="btn btn-info btn-fill"><i style="width: 1px" class="fa"></i>编辑推送</a>
@@ -68,6 +73,7 @@
       {% include "footer.html" %}
       </div>
         <script>
+
     function goPage(pno,tableid,barconid) {
         var itable = document.getElementById(tableid);
         var num = itable.rows.length;//表格所有行数(所有记录数)

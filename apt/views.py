@@ -298,7 +298,15 @@ def keyfilters(request):
         for key in keys:
             temp = keyfilter.objects.filter(id=key.keyfilter_id.id)
             ms.extend(temp)
-        return render(request, 'keyfilter.html', {'keyfilters': ms})
+        result = []
+        for m in ms:
+            temp = {}
+            temp['id'] = m.id
+            temp['name'] = m.name
+            temp['keyword'] = m.keyword.split(',')
+            temp['keycheck'] = m.keycheck
+            result.append(temp)
+        return render(request, 'keyfilter.html', {'keyfilters': result})
     except:
         traceback.print_exc()
         return errorhtml(request)
@@ -317,6 +325,7 @@ def savekeyfilter(request):
             name = request.POST['name']
             keyword = request.POST['keyword']
             keycheck = request.POST['keycheck']
+            keyword = keyword.replace(u'，',',')
             try:
                 m = keyfilter.objects.get(id=mid)
                 m.name = name
