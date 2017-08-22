@@ -21,7 +21,7 @@ class rss(models.Model):
     url = models.CharField(max_length=100, default="")
 
 class keyfilter(models.Model):
-    keyword = models.CharField(max_length=100, default="")
+    keyword = models.TextField(default="")
     name = models.CharField(max_length=100,default="")
     keycheck = models.CharField(max_length=50,default="")
 
