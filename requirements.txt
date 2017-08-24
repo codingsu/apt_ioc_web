@@ -1,7 +1,7 @@
 #网站
 sudo pip install Django==1.8.17
 sudo pip install django-crontab
-sudo pip install MySQLdb -1.2.5
+sudo pip install MySQLdb-1.2.5
 sudo pip install hashlib
 
 #爬虫
