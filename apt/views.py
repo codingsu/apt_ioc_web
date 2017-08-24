@@ -559,7 +559,7 @@ def news(request):
                     for word in keywordlist:
                         if word.strip() == '':
                             break
-                        if word in r.title.lower():
+                        if word.lower() in r.title.lower():
                             messages = {}
                             if r.id in new_ids:
                                 messages['isread'] = True
