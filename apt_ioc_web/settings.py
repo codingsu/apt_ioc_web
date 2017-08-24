@@ -76,7 +76,10 @@ WSGI_APPLICATION = 'apt_ioc_web.wsgi.application'
 
 CRONJOBS = [
     ('0 */4 * * *', 'rssspider.getrsstohtml.printhello',[],{}),
+    ('0 */6 * * *', 'rssspider.downloadpdf.checkstatus',[],{}),
+    ('0 */4 * * *', 'rssspider.getiocfromhtml.run',[],{})
 ]
+
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
