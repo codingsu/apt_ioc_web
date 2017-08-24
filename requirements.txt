@@ -1,7 +1,7 @@
 #网站
 Django==1.8.17
 django-crontab
-MySQLdb-1.2.5
+#MySQLdb-1.2.5
 hashlib
 
 #爬虫
