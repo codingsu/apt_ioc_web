@@ -557,6 +557,8 @@ def news(request):
                 for key in keyfilters:
                     keywordlist = re.split(u'[,，]',key.keyword)
                     for word in keywordlist:
+                        if word.strip() == '':
+                            break
                         if word in r.title.lower():
                             messages = {}
                             if r.id in new_ids:
