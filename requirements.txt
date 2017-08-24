@@ -6,7 +6,7 @@ hashlib
 
 #爬虫
 feedparser
-STMPsendEmail
+#STMPsendEmail
 json
 rfc822
 smtplib
