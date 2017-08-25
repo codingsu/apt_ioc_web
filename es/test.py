@@ -136,7 +136,7 @@ def start():
     getbody(config.rootpath + '/rssspider/originhtml')
 
 
-getbody(r'../rssspider/originhtml')
+# getbody(r'../rssspider/originhtml')
 # deletees('sdf')
 # lists = findfromes('APT')
 # print len(lists)
