@@ -132,8 +132,14 @@ def getbody(originpath):
             # print '---------------------------------------'
             insertdatatoes(link, content)
 
+def start():
+    getbody(config.rootpath + '/rssspider/originhtml')
 
-# getbody(r'../rssspider/originhtml')
+
+getbody(r'../rssspider/originhtml')
 # deletees('sdf')
-findfromes('IOS')
+# lists = findfromes('APT')
+# print len(lists)
+# for l in lists:
+#     print l
 
