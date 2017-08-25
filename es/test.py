@@ -135,5 +135,5 @@ def getbody(originpath):
 
 # getbody(r'../rssspider/originhtml')
 # deletees('sdf')
-# findfromes('title', '越狱平台')
+findfromes('IOS')
 
