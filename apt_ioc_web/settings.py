@@ -75,10 +75,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'apt_ioc_web.wsgi.application'
 
 CRONJOBS = [
-    ('0 */4 * * *', 'rssspider.getrsstohtml.printhello',[],{}),
-    ('0 */6 * * *', 'rssspider.downloadpdf.checkstatus',[],{}),
-    ('0 */4 * * *', 'rssspider.getiocfromhtml.run',[],{}),
-    ('0 */4 * * *', 'es.test.start',[],{})
+    ('0 */1 * * *', 'rssspider.getrsstohtml.printhello',[],{}),
+    ('0 */4 * * *', 'rssspider.downloadpdf.checkstatus',[],{}),
+    ('0 */1 * * *', 'rssspider.getiocfromhtml.run',[],{}),
+    ('0 */1 * * *', 'es.test.start',[],{})
 ]
 
 

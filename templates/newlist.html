@@ -126,7 +126,7 @@
                             <td style="word-wrap:break-word;word-break:break-all;">{{ i.date }}</td>
                             <td style="word-wrap:break-word;word-break:break-all;">{{ i.title }}</td>
                             <td style="word-wrap:break-word;word-break:break-all;">{{ i.rssname }}</td>
-                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.tags }}<i class="fa fa-plus"></i></td>
+                            <td style="word-wrap:break-word;word-break:break-all;">{{ i.tags }}<i class="fa fa-plus" onclick="edittags('{{ i.id }}','{{ i.tags }}')"></i></td>
                             <td style="word-wrap:break-word;word-break:break-all;">{{ i.attr }}</td>
                             {% if i.filedir == '' or i.filedir == '-' %}
                                 <td>暂无快照</td>
