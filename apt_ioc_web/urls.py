@@ -41,4 +41,5 @@ urlpatterns = [
     url(r'^contextseacher', apt_views.contextseacher,name='contextseacher'),
     url(r'^deleteuser',apt_views.deleteuser, name='deleteuser'),
     url(r'^tonewuser', apt_views.tonewuser, name='tonewuser'),
+    url(r'^editmesstag', apt_views.editmesstag, name='editmesstag'),
 ]

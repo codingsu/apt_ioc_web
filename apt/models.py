@@ -36,6 +36,7 @@ class rssmessage(models.Model):
     date = models.CharField(max_length=20, default="")
     link = models.CharField(max_length=300, default="")
     filedir = models.CharField(max_length=200, default="")
+    tags = models.CharField(max_length=300, default="")
 
 
 class message_user(models.Model):
