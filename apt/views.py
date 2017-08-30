@@ -574,8 +574,12 @@ def news(request):
                             messages['rssname'] = r.rssname
                             messages['link'] = r.link
                             messages['author'] = r.author
-                            messages['tags'] = key.name
+                            messages['attr'] = key.name
                             messages['filedir'] = r.filedir
+                            if r.tags == '':
+                                messages['tags'] = '无'
+                            else:
+                                messages['tags'] = r.tags
                             somem.append(messages)
                             break
                 # if r.keycheck == 'rsstitle':
@@ -601,14 +605,18 @@ def news(request):
                 messages['rssname'] = r.rssname
                 messages['link'] = r.link
                 messages['author'] = r.author
-                messages['tags'] = "无"
+                messages['attr'] = "无"
                 for key in keyfilters:
                     keywordlist = key.keyword.split(' ')
                     for word in keywordlist:
                         if word in r.title.lower():
-                            messages['tags'] = key.name
+                            messages['attr'] = key.name
                             break
                 messages['filedir'] = r.filedir
+                if r.tags == '':
+                    messages['tags'] = '无'
+                else:
+                    messages['tags'] = r.tags
                 allm.append(messages)
 
         return render(request, 'newlist.html', {'messages':somem, 'allmessages':allm})
@@ -616,6 +624,26 @@ def news(request):
         traceback.format_exc()
         logging.error(traceback.format_exc())
         return errorhtml(request)
+
+@login_decorator
+def editmesstag(request):
+    """
+    修改文章的tag
+    :param request:
+    :return:
+    """
+    if request.is_ajax():
+        try:
+            messid = request.GET.get('id')
+            mess = rssmessage.objects.get(id=messid)
+            word = request.GET.get('word')
+            word = word.replace(u'，',',')
+            mess.tags = word
+            mess.save()
+            return JsonResponse((1, '更改信息成功！'), safe=False)
+        except:
+            return errorhtml(request)
+
 
 @login_decorator
 def readNew(request):
