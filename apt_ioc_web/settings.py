@@ -78,7 +78,8 @@ CRONJOBS = [
     ('0 */1 * * *', 'rssspider.getrsstohtml.printhello',[],{}),
     ('0 */4 * * *', 'rssspider.downloadpdf.checkstatus',[],{}),
     ('0 */1 * * *', 'rssspider.getiocfromhtml.run',[],{}),
-    ('0 */1 * * *', 'es.test.start',[],{})
+    ('0 */1 * * *', 'es.test.start',[],{}),
+    ('*/20 * * * *', 'rssspider.getrsstojson.readUrlFromDb',[],{}),
 ]
 
 
