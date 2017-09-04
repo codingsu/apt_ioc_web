@@ -559,7 +559,13 @@ def news(request):
                     for word in keywordlist:
                         if word.strip() == '':
                             break
-                        if word.lower() in r.title.lower():
+                        lists = r.title.lower()
+                        p2 = re.compile(ur'[^\u4e00-\u9fa5]')
+                        p1 = re.compile(ur'[^0-9a-zA-Z]')
+                        zh = ' '.join(p2.split(lists)).strip()
+                        en = re.split(' +', ' '.join(p1.split(lists)).strip())
+                        if word.lower() in zh or word.lower() in en:
+                            print en
                             messages = {}
                             if r.id in new_ids:
                                 messages['isread'] = True
