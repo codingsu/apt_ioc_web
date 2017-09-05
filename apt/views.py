@@ -758,7 +758,7 @@ def upload_pdffile(request):
                 link = md5(myFile.name).hexdigest()
             if not os.path.exists(config.rootpath+path):
                 os.makedirs(config.rootpath+path)
-            tempfile = open('temp.pdf', 'wb+')
+            tempfile = open(config.rootpath+'/static/pdf/temp.pdf', 'wb+')
             destination = open(os.path.join(config.rootpath+path, myFile.name), 'wb+')  # 打开特定的文件进行二进制的写操作
             path = os.path.join(path, myFile.name)
             if myFile.multiple_chunks() == False:
