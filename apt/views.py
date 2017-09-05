@@ -740,7 +740,7 @@ def upload_pdffile(request):
             author = request.POST["author"]
             link = request.POST['link']
             if title == '' or resource == '' or tags == '' or datetime == '' or author == '':
-                return JsonResponse((1, '上传信息有误！'), safe=False)
+                return JsonResponse((1, '上传信息有缺失！'), safe=False)
             if resource == '':
                 #保存到临时目录下
                 resource = '无'
@@ -798,8 +798,8 @@ def upload_pdffile(request):
             return JsonResponse((2, '添加信息成功！'), safe=False)
 
     except:
-        traceback.print_exc()
-        return JsonResponse((1, '上传信息有误！'), safe=False)
+        traceback.format_exc()
+        return JsonResponse((1, traceback.format_exc()), safe=False)
 
 
 
