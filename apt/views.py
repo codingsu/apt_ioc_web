@@ -17,7 +17,7 @@ import traceback
 import logging
 from es.test import *
 from django.db.models import Q
-
+import config
 
 # Create your views here.
 def login_decorator(func):
@@ -98,12 +98,11 @@ def seachIoc(request):
                 i.ioc_match = t.ioc_match
                 i.ioc_page = t.ioc_page
                 i.ioc_oriurl = t.ioc_oriurl
-                if 'html' in t.name:
-                    result = rssmessage.objects.filter(link=t.ioc_oriurl.replace('\n',''))
-                    for r in result:
-                        i.date = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(r.date)))
-                        i.name = r.title
-                        i.ioc_rss = r.rssname
+                result = rssmessage.objects.filter(link=t.ioc_oriurl.replace('\n',''))
+                for r in result:
+                    i.date = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(r.date)))
+                    i.name = r.title
+                    i.ioc_rss = r.rssname
                 allfind.append(i)
         allfind.sort(key=lambda obj: obj.date, reverse=True)
 
@@ -505,7 +504,7 @@ def tonewuser(request):
     """
     if request.method == 'GET':
         isnew = request.GET['isnew']
-        print isnew
+        # print isnew
         try:
             if isnew == 'True':
                 return render(request, 'edituser.html', {'isnewuser': True})
@@ -565,7 +564,7 @@ def news(request):
                         zh = ' '.join(p2.split(lists)).strip()
                         en = re.split(' +', ' '.join(p1.split(lists)).strip())
                         if word.lower() in zh or word.lower() in en:
-                            print en
+                            # print en
                             messages = {}
                             if r.id in new_ids:
                                 messages['isread'] = True
@@ -661,7 +660,7 @@ def readNew(request):
     try:
         if request.method == 'GET':
             newids = request.GET['id']
-            print newids
+            # print newids
             newids = str(newids).split('-')
             n = []
             for id in newids:
@@ -729,6 +728,79 @@ def contextseacher(request):
     except Exception:
         print traceback.format_exc()
         return errorhtml(request)
+
+@login_decorator
+def upload_pdffile(request):
+    try:
+        if request.method == "POST":  # 请求方法为POST时，进行处理
+            title = request.POST["title"]
+            resource = request.POST["resource"]
+            tags = request.POST["tags"]
+            datetime = request.POST["publictime"]
+            author = request.POST["author"]
+            link = request.POST['link']
+            if title == '' or resource == '' or tags == '' or datetime == '' or author == '':
+                return JsonResponse((1, '上传信息有误！'), safe=False)
+            if resource == '':
+                #保存到临时目录下
+                resource = '无'
+
+                path = '/static/pdf/temp/'
+            else:
+                path = '/static/pdf/' + resource + '/'
+
+            myFile = request.FILES.get("myfile", None)  # 获取上传的文件，如果没有文件，则默认为None
+            if not myFile.name.endswith('.pdf'):
+                return JsonResponse((1, '请上传pdf文档！'), safe=False)
+            if not myFile:
+                return JsonResponse((1, '请上传pdf！'), safe=False)
+            if link == '':
+                link = md5(myFile.name).hexdigest()
+            if not os.path.exists(config.rootpath+path):
+                os.makedirs(config.rootpath+path)
+            tempfile = open('temp.pdf', 'wb+')
+            destination = open(os.path.join(config.rootpath+path, myFile.name), 'wb+')  # 打开特定的文件进行二进制的写操作
+            path = os.path.join(path, myFile.name)
+            if myFile.multiple_chunks() == False:
+                content = myFile.read()
+                destination.write(content)
+                tempfile.write(content)
+            else:
+                for chunk in myFile.chunks():  # 分块写入文件
+                    destination.write(chunk)
+                    tempfile.write(chunk)
+            destination.close()
+            tempfile.close()
+            date = time.mktime(time.strptime(datetime, '%Y-%m-%d %H:%M:%S'))
+
+            rss = rssmessage.objects.create(rssname=resource, title=title,author=author,date=date, link=link, filedir=path, tags=tags)
+            rss.save()
+            #提取ioc
+            cmd = 'iocp temp.pdf -p ' + config.rootpath + '/rssspider/patterns.ini -i pdf -o json -l pdfminer'
+            try:
+                tmps = os.popen(cmd).readlines()
+            except:
+                traceback.print_exc()
+                return JsonResponse((1, '添加信息成功！,提取ioc失败！'), safe=False)
+
+                tmps = list(set(tmps))
+                for tmp in tmps:
+                    try:
+
+                        text = json.loads(tmp)
+                        text['file'] = myFile.name
+                        ioc.objects.create(name=text['file'],date=date,ioc_type=text['type'],ioc_match = text['match'].encode('utf-8').replace('\'',''), ioc_page=text['page'], ioc_oriurl=link).save()
+                        # print text
+                        # text['file']=
+                    except:
+                        continue
+
+            return JsonResponse((2, '添加信息成功！'), safe=False)
+
+    except:
+        traceback.print_exc()
+        return JsonResponse((1, '上传信息有误！'), safe=False)
+
 
 
 @login_decorator

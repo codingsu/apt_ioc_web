@@ -27,6 +27,7 @@
                     <ul class="nav nav-tabs">
                         <li id="tab_1" class="active"><a href="#" onclick="changetab(1)">筛选结果</a></li>
                         <li id="tab_2" ><a href="#" onclick="changetab(2)">所有消息</a></li>
+                        <li id="tab_3" ><a href="#" onclick="changetab(3)">添加自定义消息</a></li>
                     </ul>
                   <!--<div style="float: left;">
                     <h4 class="title"></h4>
@@ -141,6 +142,64 @@
                   </table>
                     <div id="barcon2" name="barcon2"></div>
                 </div>
+                <div name="tab_div" id="tab_3_content" style="display: none" class="content table-responsive table-full-width">
+                    <div class="content">
+                  <form id='form1' name='form1' action="/upload_pdffile" enctype="multipart/form-data" method="POST">
+                      {% csrf_token %}
+                    <div class="row">
+                      <div class="col-md-12">
+                        <fieldset>
+                         <!--<div class="form-group">
+                            <label>消息形式</label>
+                              <select class="form-control" name="keycheck">
+                                  <option value="pdf" selected="true">pdf</option>
+                                  <option value="url">网址</option>
+                              </select>
+                          </div>-->
+                          <div class="form-group">
+                            <label>标题</label>
+                            <input onblur="checknull(this)" type="text" class="form-control" name="title" id="title" value="" placeholder="请输入消息内容的标题">
+                          </div>
+                          <div class="form-group">
+                            <label>消息来源</label>
+                            <input onblur="checknull(this)" type="text" class="form-control" name="resource" id="resource" value="" placeholder="请输入消息内容的来源">
+                          </div>
+                            <div class="form-group">
+                            <label>文章标签</label>
+                            <input onblur="checknull(this)" type="text" class="form-control" name="tags" id="tags" value="" placeholder="请输入消息内容的标签，使用逗号分隔每个标签">
+                          </div>
+                            <div class="form-group">
+                            <label>发布时间</label>
+                                <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" name="publictime" id="publictime" lay-key="3" readonly>                            </div>
+                            <div class="form-group">
+                            <label>发布者</label>
+                            <input onblur="checknull(this)" type="text" class="form-control" name="author" id="author" value="" placeholder="请输入文章发布者">
+                          </div>
+                            <div class="form-group">
+                            <label>来源链接</label>
+                            <input onblur="" type="text" class="form-control" name="link" id="link" placeholder="请输入文章源网页链接，可以为空" >
+                          </div>
+                            <div class="form-group">
+
+                                <div class="fallback">
+                                    <input onblur="checknull(this)" class="btn" id="myfile" name="myfile" type="file" multiple />
+                                </div>
+                            </div>
+
+                            <div style="float: right;">
+                              <a href="/keyfilters" class="btn btn-info btn-fill">返回</a>
+
+                              <button id="submit_bt" onclick="send()" type="button" class="btn btn-info btn-fill">提交</button>
+
+                            </div>
+                            <div class="clearfix"></div>
+                    </fieldset>
+                          </div>
+                        </div>
+                  </form>
+                </div>
+
+                </div>
 
               </div>
             </div>
@@ -152,6 +211,59 @@
       </div>
     </div>
     <script type="text/javascript">
+    function send() {
+        var f = document.getElementById("form1");
+        for(var i=0;i<f.elements.length-1;i++)
+        {
+         if(f.elements[i].value=="" && f.elements[i].id != 'link')
+         {
+           alert("当前表单不能有空项");
+           f.elements[i].style.borderColor = 'red';
+           return false;
+         }
+        }
+        var form = new FormData(f);
+        var bt = document.getElementById('submit_bt')
+        bt.innerHTML='正在提交请稍等'
+        bt.disabled = true;
+        $.ajax({
+                url:'/upload_pdffile',
+                type:'post',
+                cache: true,
+                data:form,
+                processData:false,
+                contentType:false,
+                success:function (result) {
+                    alert(result[1])
+                    if(result[0] == 2){
+                        document.getElementById('title').value = '';
+                        document.getElementById('resource').value = '';
+                        document.getElementById('tags').value = '';
+                        document.getElementById('publictime').value = '';
+                        document.getElementById('author').value = '';
+                        document.getElementById('link').value = '';
+                        document.getElementById('myfile').value = '';
+                        bt.innerHTML='提交'
+                        bt.disabled = false;
+                        return
+                    }
+
+
+                }
+            });
+    }
+
+        function checknull(obj) {
+            obj.style.borderColor = obj.value == "" ? 'red' : '';
+        }
+        lay('#version').html('-v'+ laydate.v);
+
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#publictime' //指定元素
+            ,type: 'datetime'
+        });
+
 
     function edittags(id,word) {
         word = prompt("文章tag以,分割:",word);
@@ -209,7 +321,7 @@
         document.location.reload();
     }
     function changetab(tabid) {
-        for(i=1;i<=2;i++) {
+        for(i=1;i<=3;i++) {
             document.getElementById("tab_"+i).className=""; //将所有的层都隐藏
         }
         document.getElementById("tab_"+tabid).className="active";//显示当前层

@@ -42,4 +42,5 @@ urlpatterns = [
     url(r'^deleteuser',apt_views.deleteuser, name='deleteuser'),
     url(r'^tonewuser', apt_views.tonewuser, name='tonewuser'),
     url(r'^editmesstag', apt_views.editmesstag, name='editmesstag'),
+    url(r'^upload_pdffile', apt_views.upload_pdffile, name='upload_pdffile'),
 ]
