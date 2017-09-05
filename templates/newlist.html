@@ -235,6 +235,8 @@
                 contentType:false,
                 success:function (result) {
                     alert(result[1])
+                    bt.innerHTML='提交'
+                    bt.disabled = false;
                     if(result[0] == 2){
                         document.getElementById('title').value = '';
                         document.getElementById('resource').value = '';
@@ -243,8 +245,6 @@
                         document.getElementById('author').value = '';
                         document.getElementById('link').value = '';
                         document.getElementById('myfile').value = '';
-                        bt.innerHTML='提交'
-                        bt.disabled = false;
                         return
                     }
 
