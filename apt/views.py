@@ -783,17 +783,17 @@ def upload_pdffile(request):
                 traceback.print_exc()
                 return JsonResponse((1, '添加信息成功！,提取ioc失败！'), safe=False)
 
-                tmps = list(set(tmps))
-                for tmp in tmps:
-                    try:
+            tmps = list(set(tmps))
+            for tmp in tmps:
+                try:
+                    text = json.loads(tmp)
+                    text['file'] = myFile.name
+                    ioc.objects.create(name=text['file'], date=date, ioc_type=text['type'],
+                                       ioc_match=text['match'].encode('utf-8').replace('\'', ''),
+                                       ioc_page=text['page'], ioc_oriurl=link).save()                        # print text
+                except:
+                    continue
 
-                        text = json.loads(tmp)
-                        text['file'] = myFile.name
-                        ioc.objects.create(name=text['file'],date=date,ioc_type=text['type'],ioc_match = text['match'].encode('utf-8').replace('\'',''), ioc_page=text['page'], ioc_oriurl=link).save()
-                        # print text
-                        # text['file']=
-                    except:
-                        continue
 
             return JsonResponse((2, '添加信息成功！'), safe=False)
 

@@ -78,7 +78,11 @@
                             {% else %}
                                 <td><a href="javascript:void(0);" onclick="seepdf('{{ i.filedir }}')">阅读</a></td>
                             {% endif %}
-                            <td style="word-wrap:break-word;word-break:break-all;"><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
+                            {% if 'http' in i.link %}
+                                <td style="word-wrap:break-word;word-break:break-all;"><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
+                            {% esif %}
+                                <td style="word-wrap:break-word;word-break:break-all;">-</td>
+                            {% endif %}
                         </tr>
                         {% endfor%}
                     </tbody>
@@ -135,8 +139,11 @@
                             {% else %}
                                 <td><a href="javascript:void(0);" onclick="seepdf('{{ i.filedir }}')">阅读</a></td>
                             {% endif %}
-                            <td style="word-wrap:break-word;word-break:break-all;"><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
-                        </tr>
+                            {% if 'http' in i.link %}
+                                <td style="word-wrap:break-word;word-break:break-all;"><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
+                            {% esif %}
+                                <td style="word-wrap:break-word;word-break:break-all;">-</td>
+                            {% endif %}                        </tr>
                         {% endfor%}
                     </tbody>
                   </table>
