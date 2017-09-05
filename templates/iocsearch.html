@@ -38,9 +38,7 @@
                       <th width="30px">Ioc</th>
                       <th width="30px">ioc页码</th>
                       <th width="30px">rss源</th>
-                      {% if 'http' in ioc.ioc_oriurl %}
-                        <th width="30px">ioc来源</th>
-                      {% endif %}
+                      <th width="30px">ioc来源</th>
                     </thead>
                     <tbody>
                         {% for ioc in iocs %}
@@ -53,7 +51,10 @@
                             <td style="word-wrap:break-word;word-break:break-all;">{{ ioc.ioc_rss }}</td>
                             {% if 'http' in ioc.ioc_oriurl %}
                                 <td style="word-wrap:break-word;word-break:break-all;"><a href="{{ ioc.ioc_oriurl }}" target="_blank">原网页</a></td>
+                            {% else %}
+                                <td style="word-wrap:break-word;word-break:break-all;">-</td>
                             {% endif %}
+
                         </tr>
                         {% endfor%}
                     </tbody>

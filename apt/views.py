@@ -794,7 +794,6 @@ def upload_pdffile(request):
                 except:
                     continue
             return JsonResponse((2, '添加信息成功！'), safe=False)
-
     except:
         traceback.format_exc()
         return JsonResponse((1, traceback.format_exc()), safe=False)
