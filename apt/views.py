@@ -776,7 +776,7 @@ def upload_pdffile(request):
             rss = rssmessage.objects.create(rssname=resource, title=title,author=author,date=date, link=link, filedir=path, tags=tags)
             rss.save()
             #提取ioc
-            cmd = 'iocp temp.pdf -p ' + config.rootpath + '/rssspider/patterns.ini -i pdf -o json -l pdfminer'
+            cmd = 'iocp ' +config.rootpath+'/static/pdf/temp.pdf -p ' + config.rootpath + '/rssspider/patterns.ini -i pdf -o json -l pdfminer'
             try:
                 tmps = os.popen(cmd).readlines()
             except:
@@ -793,8 +793,6 @@ def upload_pdffile(request):
                                        ioc_page=text['page'], ioc_oriurl=link).save()                        # print text
                 except:
                     continue
-
-
             return JsonResponse((2, '添加信息成功！'), safe=False)
 
     except:
