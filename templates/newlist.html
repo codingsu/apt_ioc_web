@@ -80,7 +80,7 @@
                             {% endif %}
                             {% if 'http' in i.link %}
                                 <td style="word-wrap:break-word;word-break:break-all;"><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
-                            {% esif %}
+                            {% else %}
                                 <td style="word-wrap:break-word;word-break:break-all;">-</td>
                             {% endif %}
                         </tr>
@@ -141,7 +141,7 @@
                             {% endif %}
                             {% if 'http' in i.link %}
                                 <td style="word-wrap:break-word;word-break:break-all;"><a href="javascript:void(0);" onclick="updatenews('{{ i.link }}','{{ i.id }}')">查看</a></td>
-                            {% esif %}
+                            {% else %}
                                 <td style="word-wrap:break-word;word-break:break-all;">-</td>
                             {% endif %}                        </tr>
                         {% endfor%}
